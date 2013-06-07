@@ -70,6 +70,8 @@ git_rule = MappingRule(
 		"git commit": Text("git commit\n"),
 		"git commit --amend": Text("git commit --amend\n"),
 
+		"git pull": Text("git pull\n"),
+
 		"git push": Text("git push\n"),
 		"git push origin": Text("git push origin\n"),
 		"git push tomato": Text("git push tomate\n"),
