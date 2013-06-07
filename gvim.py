@@ -31,10 +31,18 @@ gvim_navigation_rule = MappingRule(
 		"left": Key("h"),
 		"<n> left": Key("%(n)d, h"),
 		"right": Key("l"),
+		"start of line": Key("caret"),
+		"end of line": Key("dollar"),
 		"<n> right": Key("%(n)d, l"),
 		"line <line>": Key("colon") + Text("%(line)s\n"),
+
+		"search <text>": Key("slash") + Text("%(text)s\n"),
+		"back search <text>": Key("question") + Text("%(text)s\n"),
+		"next": Key("n"),
+
 		},
 	extras = [
+		Dictation("text"),
 		IntegerRef("n", 1, 50),
 		IntegerRef("line", 1, 10000)
 		]
@@ -48,16 +56,19 @@ gvim_edit_rule = MappingRule(
 		"append to line": Key("A"),
 		"delete to end (of) line": Key("D"),
 		"change word": Key("c,w"),
+		"change <n> words": Key("c,%(n)d,w"),
 		"change a word": Key("c,a,w"),
 		"change inner word": Key("c,i,w"),
 		"replace": Key("r"),
 		"insert above": Key("O"),
 		"insert below": Key("o"),
 		"slap": Key("enter"),
+		"<text> slap": Text("%(text)s\n"),
 		"undo": Key("u"),
 		"(Dell | delete)": Key("d"),
 		"(Dell | delete) line": Key("d") + Key("d"),
 		"yank line": Key("y") + Key("y"),
+		"yank to end of line": Key("y") + Key("dollar"),
 		"yank": Key("y"),
 		"yank down": Key("y,j"),
 		"paste": Key("p"),
@@ -66,6 +77,8 @@ gvim_edit_rule = MappingRule(
 		"cancel": Key("escape,u"),
 		},
 	extras = [
+		Dictation("text"),
+		IntegerRef("n", 1, 50),
 		]
 )
 
