@@ -78,7 +78,7 @@ gvim_navigation_rule = MappingRule(
 		"double whiskey": Key("w,w"),
 		"whiskey whiskey whiskey": Key("w,w,w"),
 		"triple whiskey": Key("w,w,w"),
-		"<n> whiskeys": Key("%(n)d,w"),
+		"<n> whiskey": Key("%(n)d,w"),
 		},
 	extras = [
 		Dictation("text"),

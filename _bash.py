@@ -41,9 +41,13 @@ bash_rule = MappingRule(
 		"git diff": Text("git diff\n"),
 		"git diff cache": Text("git diff --cached\n"),
 		"git commit": Text("git commit\n"),
+		"git kay": Text("gitk\n"),
+		"git kay all": Text("gitk --all\n"),
 		"git commit message": Text("git commit -m ''") + Key("left"),
 
 		"git push": Text("git push"),
+		"git push origin": Text("git push origin\n"),
+		"git push tomato": Text("git push tomate\n"),
 		"git push all": Text("git push --all\n"),
 		"git push github": Text("git push github\n"),
 		"git help push": Text("git help push\n"),
