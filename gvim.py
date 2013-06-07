@@ -18,9 +18,11 @@ grammar = Grammar("gvim", context=gvim_context)
 gvim_navigation_rule = MappingRule(
 	name = "gvim_navigation",
 	mapping = {
-		"jump back": Key("c-b"),
-		"jump (forward | foo)": Key("c-f"),
-		"jump old": Key("c-o"),
+		"go go": Key("g,g"),
+		"big go": Key("G"),
+		"go back": Key("c-b"),
+		"go (forward | foo)": Key("c-f"),
+		"go old": Key("c-o"),
 
 		# cursor navigation
 		"up": Key("k"),
@@ -28,6 +30,7 @@ gvim_navigation_rule = MappingRule(
 		"down": Key("j"),
 		"<n> down": Key("%(n)d, j"),
 		"left": Key("h"),
+		"left left": Key("h,h"),
 		"<n> left": Key("%(n)d, h"),
 		"right": Key("l"),
 		"<n> right": Key("%(n)d, l"),
@@ -35,19 +38,21 @@ gvim_navigation_rule = MappingRule(
 
 		# line navigation
 		"(line | go) <line>": Key("colon") + Text("%(line)s\n"),
-		"start of line": Key("caret"),
-		"end of line": Key("dollar"),
+		"hat": Key("caret"),
+		"dollar": Key("dollar"),
 
 
 		"Center": Key("z,dot"),
 
 
+		# searching
 		"search <text>": Key("slash") + Text("%(text)s\n"),
 		"search this": Key("asterisk"),
 		"back search <text>": Key("question") + Text("%(text)s\n"),
 		"next": Key("n"),
 		"previous": Key("N"),
 
+		# word navigation
 		"back": Key("b"),
 		"back back": Key("b,b"),
 		"back back back": Key("b,b,b"),
@@ -58,10 +63,10 @@ gvim_navigation_rule = MappingRule(
 		"end end end": Key("e,e,e"),
 		"<n> end": Key("%(n)d,e"),
 
-		"word": Key("w"),
-		"word word": Key("w,w"),
-		"word word word": Key("w,w,w"),
-		"<n> words": Key("%(n)d,w"),
+		"woo": Key("w"),
+		"woo woo": Key("w,w"),
+		"woo woo woo": Key("w,w,w"),
+		"<n> woos": Key("%(n)d,w"),
 		},
 	extras = [
 		Dictation("text"),
@@ -75,17 +80,20 @@ gvim_edit_rule = MappingRule(
 	mapping = {
 		"insert": Key("i"),
 		"insert <text>": Key("i") + Text("%(text)s"),
-		"insert above": Key("O"),
-		"insert below": Key("o"),
+		"big oh": Key("O"),
+		"oh": Key("o"),
 
 		"substitute": Key("s"),
 		"substitute line": Key("S"),
+
 		"append": Key("a"),
+		"append <text>": Key("a") + Text("%(text)s"),
 		"append to line": Key("A"),
-		"change word": Key("c,w"),
-		"change <n> words": Key("c,%(n)d,w"),
-		"change a word": Key("c,a,w"),
-		"change inner word": Key("c,i,w"),
+		"change woo": Key("c,w"),
+		"change <n> woos": Key("c,%(n)d,w"),
+		"<n> change woos": Key("c,%(n)d,w"),
+		"change a woo": Key("c,a,w"),
+		"change inner woo": Key("c,i,w"),
 		"replace": Key("r"),
 
 		"slap": Key("enter"),
@@ -98,21 +106,26 @@ gvim_edit_rule = MappingRule(
 		"Dell": Key("d"),
 		"Dell up": Key("d,k"),
 		"Dell <n> up": Key("d,%(n)d,k"),
+		"<n> Dell up": Key("d,%(n)d,k"),
 		"Dell down": Key("d,j"),
 		"Dell <n> down": Key("d,%(n)d,j"),
-		"Dell line": Key("d") + Key("d"),
-		"Dell line <line>": Key("colon") + Text("%(line)d") + Key("d,enter"),
-		"Dell to end (of) line": Key("D"),
-		"Dell word": Key("d,w"),
+		"<n> Dell down": Key("d,%(n)d,j"),
+		"Dell Dell": Key("d") + Key("d"),
+		"Dell <line>": Key("colon") + Text("%(line)d") + Key("d,enter"),
+		"big Dell": Key("D"),
+		"Dell woo": Key("d,w"),
 		"X.": Key("x"),
+		"X. X.": Key("x,x"),
+		"X. X. X.": Key("x,x,x"),
 
-		"yank line": Key("y") + Key("y"),
-		"yank to end of line": Key("y") + Key("dollar"),
+		# yanking related stuff
+		"big yank": Key("Y"),
+		"yank dollar": Key("y") + Key("dollar"),
 		"yank": Key("y"),
 		"yank down": Key("y,j"),
 
 		"paste": Key("p"),
-		"paste above": Key("P"),
+		"big paste": Key("P"),
 
 		"redo": Key("c-r"),
 		"cancel": Key("escape,u"),
