@@ -23,38 +23,63 @@ gvim_navigation_rule = MappingRule(
 	mapping = {
 		"jump back": Key("c-b"),
 		"jump forward": Key("c-f"),
+		"jump old": Key("c-o"),
 		"up": Key("k"),
 		"<n> up": Key("%(n)d, k"),
 		"down": Key("j"),
 		"<n> down": Key("%(n)d, j"),
-		"line <n>": Key("colon") + Text("%(n)s\n")
+		"left": Key("h"),
+		"<n> left": Key("%(n)d, h"),
+		"right": Key("l"),
+		"<n> right": Key("%(n)d, l"),
+		"line <line>": Key("colon") + Text("%(line)s\n"),
 		},
 	extras = [
-		IntegerRef("n", 1, 50)
+		IntegerRef("n", 1, 50),
+		IntegerRef("line", 1, 10000)
 		]
 )
 
-gvim_rule = MappingRule(
-	name = "gvim",
+gvim_edit_rule = MappingRule(
+	name = "gvim_edit",
 	mapping = {
-		"(okay | cancel)": Key("escape"),
 		"insert": Key("i"),
+		"append": Key("a"),
+		"append to line": Key("A"),
+		"delete to end (of) line": Key("D"),
+		"change word": Key("c,w"),
+		"change a word": Key("c,a,w"),
+		"change inner word": Key("c,i,w"),
 		"replace": Key("r"),
 		"insert above": Key("O"),
 		"insert below": Key("o"),
 		"slap": Key("enter"),
 		"undo": Key("u"),
-		"Dell": Key("d"),
-		"Dell line": Key("d") + Key("d"),
+		"(Dell | delete)": Key("d"),
+		"(Dell | delete) line": Key("d") + Key("d"),
 		"yank line": Key("y") + Key("y"),
+		"yank": Key("y"),
+		"yank down": Key("y,j"),
 		"paste": Key("p"),
 		"paste above": Key("P"),
 		"redo": Key("c-r"),
+		"cancel": Key("escape,u"),
+		},
+	extras = [
+		]
+)
+
+gvim_general_rule = MappingRule(
+	name = "gvim_general",
+	mapping = {
+		"okay": Key("escape"),
 		"(save | write) file": Text(":w\n"),
 		},
 	extras = [
 		]
 )
+
+
 
 gvim_dragon_rule = MappingRule(
 	name = "gvim_dragon",
@@ -68,7 +93,8 @@ gvim_dragon_rule = MappingRule(
 
 
 grammar.add_rule(gvim_navigation_rule)
-grammar.add_rule(gvim_rule)
+grammar.add_rule(gvim_edit_rule)
+grammar.add_rule(gvim_general_rule)
 grammar.add_rule(gvim_dragon_rule)
 grammar.load()
 
