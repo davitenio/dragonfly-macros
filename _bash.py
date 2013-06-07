@@ -7,14 +7,21 @@ putty_context = AppContext(executable="putty")
 grammar = Grammar("bash", context=(putty_context | git_context) )
 
 
-#---------------------------------------------------------------------------
-# Create a mapping rule which maps things you can say to actions.
-#
-# Note the relationship between the *mapping* and *extras* keyword
-#  arguments.  The extras is a list of Dragonfly elements which are
-#  available to be used in the specs of the mapping.  In this example
-#  the Dictation("text")* extra makes it possible to use "<text>"
-#  within a mapping spec and "%(text)s" within the associated action.
+general_rule = MappingRule(
+	name = "general",
+	mapping = {
+		"cancel": Key("c-c"),
+		"kay": Key("enter"),
+
+		"say <text>": Text("%(text)s"),
+		},
+	extras = [
+		Dictation("text"),
+		],
+)
+
+
+
 
 bash_rule = MappingRule(
 	name = "bash",
@@ -33,19 +40,37 @@ bash_rule = MappingRule(
 
 		"exit": Text("exit\n"),
 
+		"list": Text("ls\n"),
+		"list <text>": Text("ls %(text)s\n"),
+
+		"say <text>": Text("%(text)s"),
+		},
+	extras = [
+		Dictation("text"),
+		],
+)
 
 
+git_rule = MappingRule(
+	name = "git",
+	mapping = {
 		# commands for git version control
+		"git add": Text("git add "),
+		"git add <text>": Text("git add %(text)s"),
 		"git status": Text("git status\n"),
 		"git patch": Text("git add -p\n"),
+
 		"git diff": Text("git diff\n"),
 		"git diff cache": Text("git diff --cached\n"),
-		"git commit": Text("git commit\n"),
+
 		"git kay": Text("gitk\n"),
 		"git kay all": Text("gitk --all\n"),
-		"git commit message": Text("git commit -m ''") + Key("left"),
 
-		"git push": Text("git push"),
+		"git commit message": Text("git commit -m ''") + Key("left"),
+		"git commit": Text("git commit\n"),
+		"git commit --amend": Text("git commit --amend\n"),
+
+		"git push": Text("git push\n"),
 		"git push origin": Text("git push origin\n"),
 		"git push tomato": Text("git push tomate\n"),
 		"git push all": Text("git push --all\n"),
@@ -56,11 +81,6 @@ bash_rule = MappingRule(
 		"yes": Key("y,enter"),
 		"no": Key("n,enter"),
 		"quit": Key("q,enter"),
-
-		"list": Text("ls\n"),
-		"list <text>": Text("ls %(text)s\n"),
-
-		"say <text>": Text("%(text)s"),
 		},
 	extras = [
 		Dictation("text"),
@@ -85,8 +105,10 @@ screen_rule = MappingRule(
 )
 
 
+grammar.add_rule(general_rule)
 grammar.add_rule(bash_rule)
 grammar.add_rule(screen_rule)
+grammar.add_rule(git_rule)
 grammar.load()
 
 # Unload function which will be called by natlink at unload time.

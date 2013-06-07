@@ -114,6 +114,7 @@ gvim_edit_rule = MappingRule(
 		"replace": Key("r"),
 		"replace <text>": Key("r") + Text("%(text)s"),
 		"slap": Key("enter"),
+		"slap slap": Key("enter,enter"),
 		"<text> slap": Text("%(text)s\n"),
 		"slap <text>": Text("\n%(text)s"),
 
@@ -127,12 +128,15 @@ gvim_edit_rule = MappingRule(
 		"delete down": Key("d,j"),
 		"delete <n> down": Key("d,%(n)d,j"),
 		"<n> delete down": Key("d,%(n)d,j"),
-		"(delete delete | DD)": Key("d") + Key("d"),
+		"DD": Key("d,d"),
+		"<n> DD": Key("d,%(n)d,d"),
 		"delete <line>": Key("colon") + Text("%(line)d") + Key("d,enter"),
 		"big delete": Key("D"),
 		"delete a whiskey": Key("d,a,w"),
 		"delete whiskey": Key("d,w"),
 		"delete end": Key("d,e"),
+		"delete a paragraph": Key("d,a,p"),
+
 		"X.": Key("x"),
 		"<n> X.": Key("%(n)d,x"),
 		"X. X.": Key("x,x"),
@@ -145,6 +149,9 @@ gvim_edit_rule = MappingRule(
 		"yank dollar": Key("y") + Key("dollar"),
 		"yank": Key("y"),
 		"yank down": Key("y,j"),
+		"yank up": Key("y,k"),
+		"yank a whiskey": Key("y,a,w"),
+		"yank a paragraph": Key("y,a,p"),
 
 		"paste": Key("p"),
 		"big paste": Key("P"),
@@ -158,6 +165,36 @@ gvim_edit_rule = MappingRule(
 		IntegerRef("line", 1, 10000)
 		]
 )
+
+
+
+gvim_symbol_names_rule = MappingRule(
+	name = "gvim_symbol_names",
+	mapping = {
+		"D. quote": Key("dquote"),
+		"D. quote <text>": Key("dquote") + Text("%(text)s"),
+		"S. quote": Key("squote"),
+		"S. quote <text>": Key("squote") + Text("%(text)s"),
+		"lip": Key("lparen"),
+		"lip <text>": Key("lparen") + Text("%(text)s"),
+		"rip": Key("rparen"),
+		"colon": Key("colon"),
+		"langle": Key("langle"),
+		"langle <text>": Key("langle") + Text("%(text)s"),
+		"rangle": Key("rangle"),
+		"lack": Key("lbracket"),
+		"lack <text>": Key("lbracket") + Text("%(text)s"),
+		"rack": Key("rbracket"),
+		"lace": Key("lbrace"),
+		"lace <text>": Key("lbrace") + Text("%(text)s"),
+		"race": Key("rbrace"),
+		},
+	extras = [
+		Dictation("text"),
+		]
+)
+
+
 
 gvim_general_rule = MappingRule(
 	name = "gvim_general",
@@ -173,21 +210,10 @@ gvim_general_rule = MappingRule(
 
 
 
-gvim_dragon_rule = MappingRule(
-	name = "gvim_dragon",
-	mapping = {
-		"snore": Key("npdiv"),
-		},
-	extras = [
-		]
-)
-
-
-
 grammar.add_rule(gvim_navigation_rule)
 grammar.add_rule(gvim_edit_rule)
+grammar.add_rule(gvim_symbol_names_rule)
 grammar.add_rule(gvim_general_rule)
-grammar.add_rule(gvim_dragon_rule)
 grammar.load()
 
 # Unload function which will be called by natlink at unload time.
