@@ -2,9 +2,6 @@ from dragonfly import (Grammar, AppContext, MappingRule, Dictation, IntegerRef,
                        Key, Text)
 
 
-#---------------------------------------------------------------------------
-# Create this module's grammar and the context under which it'll be active.
-
 gvim_context = AppContext(executable="gvim")
 grammar = Grammar("gvim", context=gvim_context)
 
@@ -22,7 +19,7 @@ gvim_navigation_rule = MappingRule(
 	name = "gvim_navigation",
 	mapping = {
 		"jump back": Key("c-b"),
-		"jump forward": Key("c-f"),
+		"jump (forward | foo)": Key("c-f"),
 		"jump old": Key("c-o"),
 
 		# cursor navigation
@@ -35,20 +32,35 @@ gvim_navigation_rule = MappingRule(
 		"right": Key("l"),
 		"<n> right": Key("%(n)d, l"),
 
+
 		# line navigation
-		"line <line>": Key("colon") + Text("%(line)s\n"),
+		"(line | go) <line>": Key("colon") + Text("%(line)s\n"),
 		"start of line": Key("caret"),
 		"end of line": Key("dollar"),
 
+
 		"Center": Key("z,dot"),
 
+
 		"search <text>": Key("slash") + Text("%(text)s\n"),
+		"search this": Key("asterisk"),
 		"back search <text>": Key("question") + Text("%(text)s\n"),
 		"next": Key("n"),
 		"previous": Key("N"),
+
 		"back": Key("b"),
+		"back back": Key("b,b"),
+		"back back back": Key("b,b,b"),
 		"<n> back": Key("%(n)d,b"),
+
+		"end": Key("e"),
+		"end end": Key("e,e"),
+		"end end end": Key("e,e,e"),
+		"<n> end": Key("%(n)d,e"),
+
 		"word": Key("w"),
+		"word word": Key("w,w"),
+		"word word word": Key("w,w,w"),
 		"<n> words": Key("%(n)d,w"),
 		},
 	extras = [
@@ -61,39 +73,54 @@ gvim_navigation_rule = MappingRule(
 gvim_edit_rule = MappingRule(
 	name = "gvim_edit",
 	mapping = {
-		"X.": Key("x"),
+		"insert": Key("i"),
+		"insert <text>": Key("i") + Text("%(text)s"),
+		"insert above": Key("O"),
+		"insert below": Key("o"),
+
 		"substitute": Key("s"),
 		"substitute line": Key("S"),
-		"insert": Key("i"),
 		"append": Key("a"),
 		"append to line": Key("A"),
-		"Dell to end (of) line": Key("D"),
 		"change word": Key("c,w"),
-		"Dell word": Key("d,w"),
 		"change <n> words": Key("c,%(n)d,w"),
 		"change a word": Key("c,a,w"),
 		"change inner word": Key("c,i,w"),
 		"replace": Key("r"),
-		"insert above": Key("O"),
-		"insert below": Key("o"),
+
 		"slap": Key("enter"),
 		"<text> slap": Text("%(text)s\n"),
 		"slap <text>": Text("\n%(text)s"),
+
+
 		"undo": Key("u"),
+
 		"Dell": Key("d"),
+		"Dell up": Key("d,k"),
+		"Dell <n> up": Key("d,%(n)d,k"),
+		"Dell down": Key("d,j"),
+		"Dell <n> down": Key("d,%(n)d,j"),
 		"Dell line": Key("d") + Key("d"),
+		"Dell line <line>": Key("colon") + Text("%(line)d") + Key("d,enter"),
+		"Dell to end (of) line": Key("D"),
+		"Dell word": Key("d,w"),
+		"X.": Key("x"),
+
 		"yank line": Key("y") + Key("y"),
 		"yank to end of line": Key("y") + Key("dollar"),
 		"yank": Key("y"),
 		"yank down": Key("y,j"),
+
 		"paste": Key("p"),
 		"paste above": Key("P"),
+
 		"redo": Key("c-r"),
 		"cancel": Key("escape,u"),
 		},
 	extras = [
 		Dictation("text"),
 		IntegerRef("n", 1, 50),
+		IntegerRef("line", 1, 10000)
 		]
 )
 
