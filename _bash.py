@@ -33,14 +33,22 @@ bash_rule = MappingRule(
 
 		"exit": Text("exit\n"),
 
+
+
 		# commands for git version control
 		"git status": Text("git status\n"),
-		"git push": Text("git push\n"),
 		"git patch": Text("git add -p\n"),
 		"git diff": Text("git diff\n"),
 		"git diff cache": Text("git diff --cached\n"),
 		"git commit": Text("git commit\n"),
 		"git commit message": Text("git commit -m ''") + Key("left"),
+
+		"git push": Text("git push"),
+		"git push all": Text("git push --all\n"),
+		"git push github": Text("git push github\n"),
+		"git help push": Text("git help push\n"),
+
+		"git remote add": Text("git remote add"),
 		"yes": Key("y,enter"),
 		"no": Key("n,enter"),
 		"quit": Key("q,enter"),
