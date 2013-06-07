@@ -2,11 +2,10 @@ from dragonfly import (Grammar, AppContext, MappingRule, Dictation, IntegerRef,
                        Key, Text)
 
 
-#---------------------------------------------------------------------------
-# Create this module's grammar and the context under which it'll be active.
-
-bash_context = AppContext(executable="putty")
-grammar = Grammar("bash", context=bash_context)
+#git_context = AppContext(executable="cmd")
+git_context = AppContext(title="Git Bash")
+putty_context = AppContext(executable="putty")
+grammar = Grammar("bash", context=(putty_context | git_context) )
 
 
 #---------------------------------------------------------------------------

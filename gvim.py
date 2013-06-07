@@ -115,6 +115,7 @@ gvim_edit_rule = MappingRule(
 		"big Dell": Key("D"),
 		"Dell woo": Key("d,w"),
 		"X.": Key("x"),
+		"<n> X.": Key("%(n)d,x"),
 		"X. X.": Key("x,x"),
 		"X. X. X.": Key("x,x,x"),
 
