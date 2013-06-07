@@ -22,10 +22,16 @@ bash_rule = MappingRule(
 	name = "bash",
 	mapping = {
 		"cancel": Key("c-c"),
+		"okay": Key("enter"),
 
 		"CD double dot": Text("cd ..\n"),
 		"CD triple dot": Text("cd ../..\n"),
 		"CD <text>": Text("cd %(text)s\n"),
+
+		"move <text>": Text("mv %(text)s"),
+
+		"secure copy": Text("scp"),
+		"secure copy <text>": Text("scp %(text)"),
 
 		"exit": Text("exit\n"),
 

@@ -24,6 +24,8 @@ gvim_navigation_rule = MappingRule(
 		"jump back": Key("c-b"),
 		"jump forward": Key("c-f"),
 		"jump old": Key("c-o"),
+
+		# cursor navigation
 		"up": Key("k"),
 		"<n> up": Key("%(n)d, k"),
 		"down": Key("j"),
@@ -31,15 +33,23 @@ gvim_navigation_rule = MappingRule(
 		"left": Key("h"),
 		"<n> left": Key("%(n)d, h"),
 		"right": Key("l"),
+		"<n> right": Key("%(n)d, l"),
+
+		# line navigation
+		"line <line>": Key("colon") + Text("%(line)s\n"),
 		"start of line": Key("caret"),
 		"end of line": Key("dollar"),
-		"<n> right": Key("%(n)d, l"),
-		"line <line>": Key("colon") + Text("%(line)s\n"),
+
+		"Center": Key("z,dot"),
 
 		"search <text>": Key("slash") + Text("%(text)s\n"),
 		"back search <text>": Key("question") + Text("%(text)s\n"),
 		"next": Key("n"),
-
+		"previous": Key("N"),
+		"back": Key("b"),
+		"<n> back": Key("%(n)d,b"),
+		"word": Key("w"),
+		"<n> words": Key("%(n)d,w"),
 		},
 	extras = [
 		Dictation("text"),
@@ -51,11 +61,15 @@ gvim_navigation_rule = MappingRule(
 gvim_edit_rule = MappingRule(
 	name = "gvim_edit",
 	mapping = {
+		"X.": Key("x"),
+		"substitute": Key("s"),
+		"substitute line": Key("S"),
 		"insert": Key("i"),
 		"append": Key("a"),
 		"append to line": Key("A"),
-		"delete to end (of) line": Key("D"),
+		"Dell to end (of) line": Key("D"),
 		"change word": Key("c,w"),
+		"Dell word": Key("d,w"),
 		"change <n> words": Key("c,%(n)d,w"),
 		"change a word": Key("c,a,w"),
 		"change inner word": Key("c,i,w"),
@@ -64,9 +78,10 @@ gvim_edit_rule = MappingRule(
 		"insert below": Key("o"),
 		"slap": Key("enter"),
 		"<text> slap": Text("%(text)s\n"),
+		"slap <text>": Text("\n%(text)s"),
 		"undo": Key("u"),
-		"(Dell | delete)": Key("d"),
-		"(Dell | delete) line": Key("d") + Key("d"),
+		"Dell": Key("d"),
+		"Dell line": Key("d") + Key("d"),
 		"yank line": Key("y") + Key("y"),
 		"yank to end of line": Key("y") + Key("dollar"),
 		"yank": Key("y"),
