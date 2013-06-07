@@ -2,7 +2,6 @@ from dragonfly import (Grammar, AppContext, MappingRule, Dictation, IntegerRef,
                        Key, Text)
 
 
-#git_context = AppContext(executable="cmd")
 git_context = AppContext(title="Git Bash")
 putty_context = AppContext(executable="putty")
 grammar = Grammar("bash", context=(putty_context | git_context) )
@@ -21,7 +20,7 @@ bash_rule = MappingRule(
 	name = "bash",
 	mapping = {
 		"cancel": Key("c-c"),
-		"okay": Key("enter"),
+		"kay": Key("enter"),
 
 		"CD double dot": Text("cd ..\n"),
 		"CD triple dot": Text("cd ../..\n"),
@@ -34,12 +33,23 @@ bash_rule = MappingRule(
 
 		"exit": Text("exit\n"),
 
+		# commands for git version control
 		"git status": Text("git status\n"),
+		"git patch": Text("git add -p\n"),
+		"git diff": Text("git diff\n"),
+		"git diff cache": Text("git diff --cached\n"),
+		"git commit": Text("git commit\n"),
+		"git commit message": Text("git commit -m ''") + Key("left"),
+		"yes": Key("y,enter"),
+		"no": Key("n,enter"),
+		"quit": Key("q,enter"),
 
 		"list": Text("ls\n"),
 		"list <text>": Text("ls %(text)s\n"),
+
+		"say <text>": Text("%(text)s"),
 		},
-	extras = [           # Special elements in the specs of the mapping.
+	extras = [
 		Dictation("text"),
 		],
 )

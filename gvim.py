@@ -18,16 +18,20 @@ grammar = Grammar("gvim", context=gvim_context)
 gvim_navigation_rule = MappingRule(
 	name = "gvim_navigation",
 	mapping = {
-		"go go": Key("g,g"),
-		"big go": Key("G"),
-		"go back": Key("c-b"),
-		"go (forward | foo)": Key("c-f"),
+		"go first": Key("g,g"),
+		"go last": Key("G"),
+		"go up": Key("c-b"),
+		"go down": Key("c-f"),
 		"go old": Key("c-o"),
 
 		# cursor navigation
 		"up": Key("k"),
+		"up up": Key("k,k"),
+		"up up up": Key("k,k,k"),
 		"<n> up": Key("%(n)d, k"),
 		"down": Key("j"),
+		"down down": Key("j,j"),
+		"down down down": Key("j,j,j"),
 		"<n> down": Key("%(n)d, j"),
 		"left": Key("h"),
 		"left left": Key("h,h"),
@@ -52,21 +56,29 @@ gvim_navigation_rule = MappingRule(
 		"next": Key("n"),
 		"previous": Key("N"),
 
+
+
 		# word navigation
 		"back": Key("b"),
 		"back back": Key("b,b"),
+		"double back": Key("b,b"),
 		"back back back": Key("b,b,b"),
+		"triple back": Key("b,b,b"),
 		"<n> back": Key("%(n)d,b"),
 
 		"end": Key("e"),
 		"end end": Key("e,e"),
+		"double end": Key("e,e"),
 		"end end end": Key("e,e,e"),
+		"triple end": Key("e,e,e"),
 		"<n> end": Key("%(n)d,e"),
 
-		"woo": Key("w"),
-		"woo woo": Key("w,w"),
-		"woo woo woo": Key("w,w,w"),
-		"<n> woos": Key("%(n)d,w"),
+		"whiskey": Key("w"),
+		"whiskey whiskey": Key("w,w"),
+		"double whiskey": Key("w,w"),
+		"whiskey whiskey whiskey": Key("w,w,w"),
+		"triple whiskey": Key("w,w,w"),
+		"<n> whiskeys": Key("%(n)d,w"),
 		},
 	extras = [
 		Dictation("text"),
@@ -83,19 +95,24 @@ gvim_edit_rule = MappingRule(
 		"big oh": Key("O"),
 		"oh": Key("o"),
 
+		# As in repeat: "re Pete"
+		"Pete": Key("dot"),
+
 		"substitute": Key("s"),
 		"substitute line": Key("S"),
 
+		# stuff related to appending
 		"append": Key("a"),
 		"append <text>": Key("a") + Text("%(text)s"),
-		"append to line": Key("A"),
-		"change woo": Key("c,w"),
-		"change <n> woos": Key("c,%(n)d,w"),
-		"<n> change woos": Key("c,%(n)d,w"),
-		"change a woo": Key("c,a,w"),
-		"change inner woo": Key("c,i,w"),
+		"big append": Key("A"),
+		"cha whiskey": Key("c,w"),
+		"cha <n> whiskeys": Key("c,%(n)d,w"),
+		"<n> cha whiskeys": Key("c,%(n)d,w"),
+		"cha a whiskey": Key("c,a,w"),
+		"cha inner whiskey": Key("c,i,w"),
+		"cha whiskey <text>": Key("c,w") + Text("%(text)s"),
 		"replace": Key("r"),
-
+		"replace <text>": Key("r") + Text("%(text)s"),
 		"slap": Key("enter"),
 		"<text> slap": Text("%(text)s\n"),
 		"slap <text>": Text("\n%(text)s"),
@@ -103,21 +120,25 @@ gvim_edit_rule = MappingRule(
 
 		"undo": Key("u"),
 
-		"Dell": Key("d"),
-		"Dell up": Key("d,k"),
-		"Dell <n> up": Key("d,%(n)d,k"),
-		"<n> Dell up": Key("d,%(n)d,k"),
-		"Dell down": Key("d,j"),
-		"Dell <n> down": Key("d,%(n)d,j"),
-		"<n> Dell down": Key("d,%(n)d,j"),
-		"Dell Dell": Key("d") + Key("d"),
-		"Dell <line>": Key("colon") + Text("%(line)d") + Key("d,enter"),
-		"big Dell": Key("D"),
-		"Dell woo": Key("d,w"),
+		"delete": Key("d"),
+		"delete up": Key("d,k"),
+		"delete <n> up": Key("d,%(n)d,k"),
+		"<n> delete up": Key("d,%(n)d,k"),
+		"delete down": Key("d,j"),
+		"delete <n> down": Key("d,%(n)d,j"),
+		"<n> delete down": Key("d,%(n)d,j"),
+		"(delete delete | DD)": Key("d") + Key("d"),
+		"delete <line>": Key("colon") + Text("%(line)d") + Key("d,enter"),
+		"big delete": Key("D"),
+		"delete a whiskey": Key("d,a,w"),
+		"delete whiskey": Key("d,w"),
+		"delete end": Key("d,e"),
 		"X.": Key("x"),
 		"<n> X.": Key("%(n)d,x"),
 		"X. X.": Key("x,x"),
+		"double X.": Key("x,x"),
 		"X. X. X.": Key("x,x,x"),
+		"triple X.": Key("x,x,x"),
 
 		# yanking related stuff
 		"big yank": Key("Y"),
@@ -141,10 +162,12 @@ gvim_edit_rule = MappingRule(
 gvim_general_rule = MappingRule(
 	name = "gvim_general",
 	mapping = {
-		"okay": Key("escape"),
-		"(save | write) file": Text(":w\n"),
+		"kay": Key("escape"),
+		"write file": Text(":w\n"),
+		"say <text>": Text("%(text)s"),
 		},
 	extras = [
+		Dictation("text"),
 		]
 )
 
