@@ -35,6 +35,7 @@ bash_rule = MappingRule(
 
 		# commands for git version control
 		"git status": Text("git status\n"),
+		"git push": Text("git push\n"),
 		"git patch": Text("git add -p\n"),
 		"git diff": Text("git diff\n"),
 		"git diff cache": Text("git diff --cached\n"),
