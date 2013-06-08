@@ -24,45 +24,56 @@ release = Key("shift:up, ctrl:up")
 #  in series so as to execute multiple actions within a single utterance.
 
 cmd.map = {
-           # Spoken-form    ->    ->    ->     Action object
+	# Spoken-form    ->    ->    ->     Action object
 
-           "up [<n>]":                         Key("up:%(n)d"),
-           "down [<n>]":                       Key("down:%(n)d"),
-           "left [<n>]":                       Key("left:%(n)d"),
-           "right [<n>]":                      Key("right:%(n)d"),
-           "page up [<n>]":                    Key("pgup:%(n)d"),
-           "page down [<n>]":                  Key("pgdown:%(n)d"),
-           "up <n> (page | pages)":            Key("pgup:%(n)d"),
-           "down <n> (page | pages)":          Key("pgdown:%(n)d"),
-           "left <n> (word | words)":          Key("c-left:%(n)d"),
-           "right <n> (word | words)":         Key("c-right:%(n)d"),
-           "home":                             Key("home"),
-           "end":                              Key("end"),
-           "doc home":                         Key("c-home"),
-           "doc end":                          Key("c-end"),
+	"[<n>] up":                         Key("k:%(n)d"),
+	"[<n>] down":                       Key("j:%(n)d"),
+	"[<n>] left":                       Key("h:%(n)d"),
+	"[<n>] right":                      Key("l:%(n)d"),
+	"go up [<n>]":                    Key("c-b:%(n)d"),
+	"go down [<n>]":                  Key("c-f:%(n)d"),
+	"up <n> (page | pages)":            Key("pgup:%(n)d"),
+	"down <n> (page | pages)":          Key("pgdown:%(n)d"),
+	"left <n> (word | words)":          Key("c-left:%(n)d"),
+	"right <n> (word | words)":         Key("c-right:%(n)d"),
+	"hat":                              Key("caret"),
+	"dollar":                           Key("dollar"),
+	"doc home":                         Key("c-home"),
+	"doc end":                          Key("c-end"),
 
-           "space [<n>]":                      release + Key("space:%(n)d"),
-           "enter [<n>]":                      release + Key("enter:%(n)d"),
-           "tab [<n>]":                        Key("tab:%(n)d"),
-           "delete [<n>]":                     release + Key("del:%(n)d"),
-           "delete [<n> | this] (line|lines)": release + Key("home, s-down:%(n)d, del"),
-           "backspace [<n>]":                  release + Key("backspace:%(n)d"),
-           "pop up":                           release + Key("apps"),
+	"next": Key("n"),
+	"previous": Key("N"),
+	"[<n>] back": Key("b:%(n)d"),
+	"[<n>] whiskey": Key("w:%(n)d"),
+	"[<n>] ech": Key("e:%(n)d"),
 
-           "paste":                            release + Key("c-v"),
-           "duplicate <n>":                    release + Key("c-c, c-v:%(n)d"),
-           "copy":                             release + Key("c-c"),
-           "cut":                              release + Key("c-x"),
-           "select all":                       release + Key("c-a"),
-           "[hold] shift":                     Key("shift:down"),
-           "release shift":                    Key("shift:up"),
-           "[hold] control":                   Key("ctrl:down"),
-           "release control":                  Key("ctrl:up"),
-           "release [all]":                    release,
+	"Center": Key("z,dot"),
 
-           "say <text>":                       release + Text("%(text)s"),
-           "mimic <text>":                     release + Mimic(extra="text"),
-          }
+	"space [<n>]":                      Key("space:%(n)d"),
+	"[<n>] slap":                       Key("enter:%(n)d"),
+	"[<n>] tab":                        Key("tab:%(n)d"),
+	"[<n>] X.":            	       Key("x:%(n)d"),
+	"[<n>] backspace":                  Key("backspace:%(n)d"),
+
+	"kay":                              Key("escape"),
+
+	"oh":                               Key("o"),
+	"p oh":                         Key("O"),
+
+	"D.":                       Key("d"),
+	"change":                       Key("c"),
+	"undo":                       Key("u"),
+	"insert":                       Key("i"),
+
+	"yank":                             Key("y"),
+	"p yank":                       Key("Y"),
+
+	"paste":                            Key("p"),
+	"p paste":                      Key("P"),
+
+	"say <text>":                       release + Text("%(text)s"),
+	"mimic <text>":                     release + Mimic(extra="text"),
+}
 
 
 #---------------------------------------------------------------------------

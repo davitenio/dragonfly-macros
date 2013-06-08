@@ -3,6 +3,7 @@
 # (c) Copyright 2008 by Christo Butcher
 # Licensed under the LGPL, see <http://www.gnu.org/licenses/>
 #
+# Modified by David Gessner
 
 """
 Command-module for cursor movement and **editing**
@@ -85,7 +86,8 @@ release = Key("shift:up, ctrl:up")
 #---------------------------------------------------------------------------
 # Set up this module's configuration.
 
-config            = Config("multi edit")
+# This defines a configuration object with the name "gvim".
+config            = Config("gvim")
 config.cmd        = Section("Language section")
 config.cmd.map    = Item(
     # Here we define the *default* command map.  If you would like to
@@ -135,6 +137,10 @@ config.cmd.map    = Item(
      "Text":  Text,
     }
 )
+
+# This searches for a file with the same name as this file (gvim.py), but with
+# the extension ".py" replaced by ".txt". In other words, it loads the
+# configuration specified in the file gvim.txt
 namespace = config.load()
 
 #---------------------------------------------------------------------------
@@ -269,10 +275,90 @@ class RepeatRule(CompoundRule):
 
 
 #---------------------------------------------------------------------------
+
+gvim_ex_rule = MappingRule(
+	name = "gvim_execute",
+	mapping = {
+		"execute write file": Text(":w\n"),
+		"execute edit file": Text(":e "),
+		},
+	extras = [
+		Dictation("text"),
+		]
+)
+
+
+#---------------------------------------------------------------------------
+
+gvim_window_rule = MappingRule(
+	name = "gvim_window",
+	mapping = {
+		# window navigation commands 
+		"window left": Key("c-w,h"),
+		"window right": Key("c-w,l"),
+		"window up": Key("c-w,k"),
+		"window down": Key("c-w,j"),
+
+		# window creation commands
+		"window split": Key("c-w,s"),
+		"window vertical split": Key("c-w,v"),
+		},
+	extras = [
+		]
+)
+
+#---------------------------------------------------------------------------
+
+gvim_tabulator_rule = MappingRule(
+	name = "gvim_tabulators",
+	mapping = {
+		# tabulator navigation commands 
+		"tabulator next": Key("g,t"),
+		"tabulator previous": Key("g,T"),
+		},
+	extras = [
+		]
+)
+
+#---------------------------------------------------------------------------
+
+gvim_navigation_rule = MappingRule(
+	name = "gvim_navigation",
+	mapping = {
+		"go first (line)": Key("g,g"),
+		"go last (line)": Key("G"),
+		"go old": Key("c-o"),
+		"go top": Key("s-h"),
+		"go middle": Key("s-m"),
+		"go low": Key("s-l"),
+
+		# line navigation
+		"go <line>": Key("colon") + Text("%(line)s\n"),
+
+		# searching
+		"search <text>": Key("slash") + Text("%(text)s\n"),
+		"search this": Key("asterisk"),
+		"back search <text>": Key("question") + Text("%(text)s\n"),
+
+		},
+	extras = [
+		Dictation("text"),
+		IntegerRef("n", 1, 50),
+		IntegerRef("line", 1, 10000)
+		]
+)
+
+#---------------------------------------------------------------------------
 # Create and load this module's grammar.
 
-grammar = Grammar("multi edit")   # Create this module's grammar.
-grammar.add_rule(RepeatRule())    # Add the top-level rule.
+gvim_context = AppContext(executable="gvim")
+grammar = Grammar("gvim", context=gvim_context)
+grammar.add_rule(RepeatRule())
+grammar.add_rule(gvim_window_rule)
+grammar.add_rule(gvim_tabulator_rule)
+grammar.add_rule(gvim_navigation_rule)
+grammar.add_rule(gvim_ex_rule)
+
 grammar.load()                    # Load the grammar.
 
 # Unload function which will be called at unload time.
