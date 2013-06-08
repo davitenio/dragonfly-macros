@@ -6,23 +6,17 @@ gvim_context = AppContext(executable="gvim")
 grammar = Grammar("gvim", context=gvim_context)
 
 
-#---------------------------------------------------------------------------
-# Create a mapping rule which maps things you can say to actions.
-#
-# Note the relationship between the *mapping* and *extras* keyword
-#  arguments.  The extras is a list of Dragonfly elements which are
-#  available to be used in the specs of the mapping.  In this example
-#  the Dictation("text")* extra makes it possible to use "<text>"
-#  within a mapping spec and "%(text)s" within the associated action.
-
 gvim_navigation_rule = MappingRule(
 	name = "gvim_navigation",
 	mapping = {
-		"go first": Key("g,g"),
-		"go last": Key("G"),
+		"go first (line)": Key("g,g"),
+		"go last (line)": Key("G"),
 		"go up": Key("c-b"),
 		"go down": Key("c-f"),
 		"go old": Key("c-o"),
+		"go top": Key("s-h"),
+		"go middle": Key("s-m"),
+		"go low": Key("s-l"),
 
 		# cursor navigation
 		"up": Key("k"),
@@ -92,7 +86,7 @@ gvim_edit_rule = MappingRule(
 	mapping = {
 		"insert": Key("i"),
 		"insert <text>": Key("i") + Text("%(text)s"),
-		"big oh": Key("O"),
+		"shift oh": Key("O"),
 		"oh": Key("o"),
 
 		# As in repeat: "re Pete"
@@ -104,7 +98,7 @@ gvim_edit_rule = MappingRule(
 		# stuff related to appending
 		"append": Key("a"),
 		"append <text>": Key("a") + Text("%(text)s"),
-		"big append": Key("A"),
+		"shift append": Key("A"),
 		"cha whiskey": Key("c,w"),
 		"cha <n> whiskey": Key("c,%(n)d,w"),
 		"<n> cha whiskey": Key("c,%(n)d,w"),
@@ -131,7 +125,7 @@ gvim_edit_rule = MappingRule(
 		"DD": Key("d,d"),
 		"<n> DD": Key("d,%(n)d,d"),
 		"delete <line>": Key("colon") + Text("%(line)d") + Key("d,enter"),
-		"big delete": Key("D"),
+		"shift delete": Key("D"),
 		"delete a whiskey": Key("d,a,w"),
 		"delete whiskey": Key("d,w"),
 		"delete end": Key("d,e"),
@@ -145,7 +139,7 @@ gvim_edit_rule = MappingRule(
 		"triple X.": Key("x,x,x"),
 
 		# yanking related stuff
-		"big yank": Key("Y"),
+		"shift yank": Key("Y"),
 		"yank dollar": Key("y") + Key("dollar"),
 		"yank": Key("y"),
 		"yank down": Key("y,j"),
@@ -154,7 +148,7 @@ gvim_edit_rule = MappingRule(
 		"yank a paragraph": Key("y,a,p"),
 
 		"paste": Key("p"),
-		"big paste": Key("P"),
+		"shift paste": Key("P"),
 
 		"redo": Key("c-r"),
 		"cancel": Key("escape,u"),
@@ -195,12 +189,24 @@ gvim_symbol_names_rule = MappingRule(
 )
 
 
+gvim_ex_rule = MappingRule(
+	name = "gvim_execute",
+	mapping = {
+		"execute write": Text(":w\n"),
+		"execute edit": Text(":e "),
+		},
+	extras = [
+		Dictation("text"),
+		]
+)
+
+
+
 
 gvim_general_rule = MappingRule(
 	name = "gvim_general",
 	mapping = {
 		"kay": Key("escape"),
-		"write file": Text(":w\n"),
 		"say <text>": Text("%(text)s"),
 		},
 	extras = [
@@ -213,6 +219,7 @@ gvim_general_rule = MappingRule(
 grammar.add_rule(gvim_navigation_rule)
 grammar.add_rule(gvim_edit_rule)
 grammar.add_rule(gvim_symbol_names_rule)
+grammar.add_rule(gvim_ex_rule)
 grammar.add_rule(gvim_general_rule)
 grammar.load()
 
