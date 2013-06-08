@@ -42,8 +42,8 @@ bash_rule = MappingRule(
 
 		"exit": Text("exit\n"),
 
-		"list": Text("ls "),
-		"list minus L.": Text("ls -l "),
+		"list": Text("ls\n"),
+		"list minus L.": Text("ls -l\n"),
 
 		"repeat previous argument": Key("a-dot"),
 		"up": Key("up"),
@@ -72,6 +72,8 @@ git_rule = MappingRule(
 		"git commit message": Text("git commit -m ''") + Key("left"),
 		"git commit": Text("git commit\n"),
 		"git commit --amend": Text("git commit --amend\n"),
+
+		"git check out minus F.": Text("git checkout -f\n"),
 
 		"git pull": Text("git pull\n"),
 
