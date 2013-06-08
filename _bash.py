@@ -38,12 +38,15 @@ bash_rule = MappingRule(
 		"secure copy": Text("scp"),
 		"secure copy <text>": Text("scp %(text)"),
 
+		"change mode": Text("chmod "),
+
 		"exit": Text("exit\n"),
 
-		"list": Text("ls\n"),
-		"list <text>": Text("ls %(text)s\n"),
+		"list": Text("ls "),
+		"list minus L.": Text("ls -l "),
 
-		"say <text>": Text("%(text)s"),
+		"repeat previous argument": Key("a-dot"),
+		"up": Key("up"),
 		},
 	extras = [
 		Dictation("text"),
