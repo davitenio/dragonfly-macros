@@ -22,6 +22,16 @@ general_rule = MappingRule(
 
 
 
+file_extensions_rule = MappingRule(
+	name = "file extensions",
+	mapping = {
+		"dot text": Text(".txt"),
+		"dot pie": Text(".py"),
+		},
+	extras = [
+		],
+)
+
 
 bash_rule = MappingRule(
 	name = "bash",
@@ -33,7 +43,10 @@ bash_rule = MappingRule(
 		"CD triple dot": Text("cd ../..\n"),
 		"CD <text>": Text("cd %(text)s\n"),
 
+		"move": Text("mv "),
 		"move <text>": Text("mv %(text)s"),
+		"remove": Text("rm "),
+		"remove <text>": Text("rm %(text)s"),
 
 		"secure copy": Text("scp"),
 		"secure copy <text>": Text("scp %(text)"),
@@ -47,6 +60,12 @@ bash_rule = MappingRule(
 
 		"repeat previous argument": Key("a-dot"),
 		"up": Key("up"),
+
+		# cursor movement
+		"back": Key("a-b"),
+		"whiskey": Key("a-f"),
+
+		"delete previous whiskey": Key("c-w"),
 		},
 	extras = [
 		Dictation("text"),
@@ -60,8 +79,14 @@ git_rule = MappingRule(
 		# commands for git version control
 		"git add": Text("git add "),
 		"git add <text>": Text("git add %(text)s"),
+		"git remove": Text("git rm "),
+		"git remove <text>": Text("git rm %(text)s"),
+		"git move": Text("git move "),
+		"git move <text>": Text("git mv %(text)s"),
 		"git status": Text("git status\n"),
 		"git patch": Text("git add -p\n"),
+
+		"git log": Text("git log\n"),
 
 		"git diff": Text("git diff\n"),
 		"git diff cache": Text("git diff --cached\n"),
@@ -113,6 +138,7 @@ screen_rule = MappingRule(
 
 
 grammar.add_rule(general_rule)
+grammar.add_rule(file_extensions_rule)
 grammar.add_rule(bash_rule)
 grammar.add_rule(screen_rule)
 grammar.add_rule(git_rule)
