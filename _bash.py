@@ -39,9 +39,19 @@ bash_rule = MappingRule(
 		"cancel": Key("c-c"),
 		"kay": Key("enter"),
 
+		"P. W. D.": Text("pwd\n"),
+
+		"CD dot dot": Text("cd ..\n"),
 		"CD double dot": Text("cd ..\n"),
 		"CD triple dot": Text("cd ../..\n"),
+		"CD ": Text("cd "),
 		"CD <text>": Text("cd %(text)s\n"),
+
+		"copy": Text("cp "),
+		"copy <text>": Text("cp %(text)s"),
+
+		"make directory ": Text("mkdir "),
+		"make directory <text>": Text("mkdir %(text)s\n"),
 
 		"move": Text("mv "),
 		"move <text>": Text("mv %(text)s"),
@@ -62,13 +72,17 @@ bash_rule = MappingRule(
 		"up": Key("up"),
 
 		# cursor movement
-		"back": Key("a-b"),
-		"whiskey": Key("a-f"),
+		"[<n>] back": Key("a-b:%(n)d"),
+		"[<n>] whiskey": Key("a-f:%(n)d"),
+		"dollar": Key("c-e"),
+		"hat": Key("c-a"),
 
-		"delete previous whiskey": Key("c-w"),
+		"[<n>] delete whiskey": Key("c-w:%(n)d"),
+		"paste": Key("c-y"),
 		},
 	extras = [
 		Dictation("text"),
+		IntegerRef("n", 1, 20)
 		],
 )
 
