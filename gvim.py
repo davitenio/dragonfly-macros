@@ -322,6 +322,18 @@ gvim_tabulator_rule = MappingRule(
 
 #---------------------------------------------------------------------------
 
+gvim_general_rule = MappingRule(
+	name = "gvim_general",
+	mapping = {
+		"cancel": Key("escape,u"),
+		"redo": Key("c-r"),
+		},
+	extras = [
+		]
+)
+
+#---------------------------------------------------------------------------
+
 gvim_navigation_rule = MappingRule(
 	name = "gvim_navigation",
 	mapping = {
@@ -356,6 +368,7 @@ grammar = Grammar("gvim", context=gvim_context)
 grammar.add_rule(RepeatRule())
 grammar.add_rule(gvim_window_rule)
 grammar.add_rule(gvim_tabulator_rule)
+grammar.add_rule(gvim_general_rule)
 grammar.add_rule(gvim_navigation_rule)
 grammar.add_rule(gvim_ex_rule)
 

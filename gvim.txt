@@ -61,7 +61,7 @@ cmd.map = {
 	"p oh":                         Key("O"),
 
 	"D.":                       Key("d"),
-	"change":                       Key("c"),
+	"cha":                       Key("c"),
 	"undo":                       Key("u"),
 	"insert":                       Key("i"),
 
@@ -70,6 +70,9 @@ cmd.map = {
 
 	"paste":                            Key("p"),
 	"p paste":                      Key("P"),
+
+	"replace":                            Key("r"),
+	"p replace":                      Key("R"),
 
 	"say <text>":                       release + Text("%(text)s"),
 	"mimic <text>":                     release + Mimic(extra="text"),
