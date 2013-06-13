@@ -2,9 +2,10 @@ from dragonfly import (Grammar, AppContext, MappingRule, Dictation, IntegerRef,
                        Key, Text)
 
 
-git_context = AppContext(title="Git Bash")
+git_context = AppContext(title="git Bash")
+git_context2 = AppContext(title="MINGW32:")
 putty_context = AppContext(executable="putty")
-grammar = Grammar("bash", context=(putty_context | git_context) )
+grammar = Grammar("bash", context=(putty_context | git_context | git_context2))
 
 
 general_rule = MappingRule(
@@ -45,7 +46,7 @@ bash_rule = MappingRule(
 		"CD double dot": Text("cd ..\n"),
 		"CD triple dot": Text("cd ../..\n"),
 		"CD ": Text("cd "),
-		"CD <text>": Text("cd %(text)s\n"),
+		"CD <text>": Text("cd %(text)s"),
 
 		"copy": Text("cp "),
 		"copy <text>": Text("cp %(text)s"),
@@ -66,6 +67,7 @@ bash_rule = MappingRule(
 		"exit": Text("exit\n"),
 
 		"list": Text("ls\n"),
+		"list <text>": Text("ls %(text)s"),
 		"list minus L.": Text("ls -l\n"),
 		"list minus one": Text("ls -1 "),
 
