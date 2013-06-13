@@ -281,6 +281,7 @@ gvim_ex_rule = MappingRule(
 	mapping = {
 		"execute write file": Text(":w\n"),
 		"execute edit file": Text(":e "),
+		"execute set ignore case": Text(":set ignorecase\n"),
 		},
 	extras = [
 		Dictation("text"),
@@ -326,7 +327,6 @@ gvim_general_rule = MappingRule(
 	name = "gvim_general",
 	mapping = {
 		"cancel": Key("escape,u"),
-		"redo": Key("c-r"),
 		},
 	extras = [
 		]

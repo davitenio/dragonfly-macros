@@ -67,22 +67,32 @@ bash_rule = MappingRule(
 
 		"list": Text("ls\n"),
 		"list minus L.": Text("ls -l\n"),
+		"list minus one": Text("ls -1 "),
+
+		"pipe": Text(" | "),
+
+		"manual page": Text("man "),
+
+		"word count": Text("wc "),
+		"word count minus L.": Text("wc -l "),
 
 		"repeat previous argument": Key("a-dot"),
 		"up": Key("up"),
 
 		# cursor movement
+		"back": Key("a-b"),
 		"[<n>] back": Key("a-b:%(n)d"),
 		"[<n>] whiskey": Key("a-f:%(n)d"),
 		"dollar": Key("c-e"),
 		"hat": Key("c-a"),
 
+		"delete whiskey": Key("c-w"),
 		"[<n>] delete whiskey": Key("c-w:%(n)d"),
 		"paste": Key("c-y"),
 		},
 	extras = [
 		Dictation("text"),
-		IntegerRef("n", 1, 20)
+		IntegerRef("n", 0, 20)
 		],
 )
 
