@@ -122,6 +122,7 @@ git_rule = MappingRule(
 		"git patch": Text("git add -p\n"),
 
 		"git log": Text("git log\n"),
+		"git log minus stat": Text("git log --stat\n"),
 
 		"git diff": Text("git diff\n"),
 		"git diff cache": Text("git diff --cached\n"),
@@ -133,15 +134,21 @@ git_rule = MappingRule(
 		"git commit": Text("git commit\n"),
 		"git commit --amend": Text("git commit --amend\n"),
 
+		"git check out": Text("git checkout "),
+		"git check out <text>": Text("git checkout %(text)s"),
 		"git check out minus F.": Text("git checkout -f\n"),
+
+		"git stash": Text("git stash\n"),
 
 		"git pull": Text("git pull\n"),
 
 		"git push": Text("git push\n"),
+		"git push drop box": Text("git push dropbox\n"),
 		"git push origin": Text("git push origin\n"),
 		"git push tomato": Text("git push tomate\n"),
 		"git push all": Text("git push --all\n"),
 		"git push github": Text("git push github\n"),
+		"git help": Text("git help"),
 		"git help push": Text("git help push\n"),
 
 		"git remote add": Text("git remote add"),
