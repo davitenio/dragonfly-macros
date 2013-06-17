@@ -45,7 +45,7 @@ cmd.map = {
 	"previous": Key("N"),
 	"[<n>] back": Key("b:%(n)d"),
 	"[<n>] whiskey": Key("w:%(n)d"),
-	"[<n>] ech": Key("e:%(n)d"),
+	"[<n>] echo": Key("e:%(n)d"),
 
 	"Center": Key("z,dot"),
 
@@ -62,9 +62,11 @@ cmd.map = {
 
 	"D.":                       Key("d"),
 	"change":                       Key("c"),
+	"p change":                       Key("C"),
 	"[<n>] undo":                       Key("u:%(n)d"),
 	"[<n>] redo": Key("c-r:%(n)d"),
 	"insert":                       Key("i"),
+	"append":                       Key("a"),
 
 	"yank":                             Key("y"),
 	"p yank":                       Key("Y"),
@@ -74,6 +76,9 @@ cmd.map = {
 
 	"replace":                            Key("r"),
 	"p replace":                      Key("R"),
+
+	# Pete is shorthand for repeat
+	"Pete":                      Key("dot"),
 
 	"say <text>":                       release + Text("%(text)s"),
 	"mimic <text>":                     release + Mimic(extra="text"),

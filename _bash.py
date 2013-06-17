@@ -91,6 +91,15 @@ bash_rule = MappingRule(
 		"delete whiskey": Key("c-w"),
 		"[<n>] delete whiskey": Key("c-w:%(n)d"),
 		"paste": Key("c-y"),
+
+		"make": Text("make\n"),
+
+		"evince": Text("evince "),
+		"evince <text>": Text("evince %(text)s"),
+
+		"aptitude search": Text("aptitude search "),
+		"pseudo-aptitude install": Text("sudo aptitude install "),
+		"pseudo-aptitude remove": Text("sudo aptitude remove "),
 		},
 	extras = [
 		Dictation("text"),
