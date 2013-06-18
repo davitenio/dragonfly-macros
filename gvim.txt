@@ -48,6 +48,9 @@ cmd.map = {
 	"[<n>] echo": Key("e:%(n)d"),
 
 	"Center": Key("z,dot"),
+	"format": Key("g,q"),
+
+	"a paragraph": Key("a,p"),
 
 	"space [<n>]":                      Key("space:%(n)d"),
 	"[<n>] slap":                       Key("enter:%(n)d"),

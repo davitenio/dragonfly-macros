@@ -64,6 +64,8 @@ bash_rule = MappingRule(
 
 		"change mode": Text("chmod "),
 
+		"cat": Text("cat "),
+		"cat <text>": Text("cat %(text)s"),
 		"exit": Text("exit\n"),
 
 		"list": Text("ls\n"),
