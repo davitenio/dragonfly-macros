@@ -102,6 +102,8 @@ bash_rule = MappingRule(
 		"aptitude search": Text("aptitude search "),
 		"pseudo-aptitude install": Text("sudo aptitude install "),
 		"pseudo-aptitude remove": Text("sudo aptitude remove "),
+
+		"A. P. T. file search": Text("apt-file search "),
 		},
 	extras = [
 		Dictation("text"),
@@ -124,6 +126,7 @@ git_rule = MappingRule(
 		"git patch": Text("git add -p\n"),
 
 		"git log": Text("git log\n"),
+		"git log minus P.": Text("git log -p\n"),
 		"git log minus stat": Text("git log --stat\n"),
 
 		"git diff": Text("git diff\n"),
