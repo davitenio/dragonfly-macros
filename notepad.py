@@ -271,7 +271,8 @@ class RepeatRule(CompoundRule):
 #---------------------------------------------------------------------------
 # Create and load this module's grammar.
 
-grammar = Grammar("multi edit")   # Create this module's grammar.
+notepad_context = AppContext(executable="notepad")
+grammar = Grammar("multi edit", context=notepad_context)
 grammar.add_rule(RepeatRule())    # Add the top-level rule.
 grammar.load()                    # Load the grammar.
 
