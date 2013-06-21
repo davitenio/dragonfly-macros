@@ -13,6 +13,8 @@ general_rule = MappingRule(
 	mapping = {
 		"cancel": Key("c-c"),
 		"kay": Key("enter"),
+		"left": Key("left"),
+		"right": Key("right"),
 
 		"say <text>": Text("%(text)s"),
 		},
