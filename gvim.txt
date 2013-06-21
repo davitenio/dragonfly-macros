@@ -72,8 +72,11 @@ cmd.map = {
 	"insert":                       Key("i"),
 	"append":                       Key("a"),
 
-	"find <text>":                            Key("f") + Text("%(text)s"),
-	"p find <text>":                            Key("F") + Text("%(text)s"),
+	"[<n>] find <text>":                            Key("f") + Text("%(text)s"),
+	"[<n>] p find <text>":                            Key("F") + Text("%(text)s"),
+
+	"[<n>] until <text>":                            Key("t") + Text("%(text)s"),
+	"[<n>] p until <text>":                            Key("t") + Text("%(text)s"),
 
 	"yank":                             Key("y"),
 	"p yank":                       Key("Y"),
