@@ -63,13 +63,17 @@ cmd.map = {
 	"oh":                               Key("o"),
 	"p oh":                         Key("O"),
 
-	"D.":                       Key("d"),
+	"(delete | D.)":                       Key("d"),
+	"p (delete | D.)":                       Key("s-d"),
 	"change":                       Key("c"),
 	"p change":                       Key("C"),
 	"[<n>] undo":                       Key("u:%(n)d"),
 	"[<n>] redo": Key("c-r:%(n)d"),
 	"insert":                       Key("i"),
 	"append":                       Key("a"),
+
+	"find <text>":                            Key("f") + Text("%(text)s"),
+	"p find <text>":                            Key("F") + Text("%(text)s"),
 
 	"yank":                             Key("y"),
 	"p yank":                       Key("Y"),
