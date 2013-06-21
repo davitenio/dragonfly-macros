@@ -37,9 +37,6 @@ file_extensions_rule = MappingRule(
 bash_rule = MappingRule(
 	name = "bash",
 	mapping = {
-		"cancel": Key("c-c"),
-		"kay": Key("enter"),
-
 		"P. W. D.": Text("pwd\n"),
 
 		"CD dot dot": Text("cd ..\n"),
@@ -101,6 +98,7 @@ bash_rule = MappingRule(
 
 		"aptitude search": Text("aptitude search "),
 		"pseudo-aptitude install": Text("sudo aptitude install "),
+		"pseudo-aptitude update": Text("sudo aptitude update "),
 		"pseudo-aptitude remove": Text("sudo aptitude remove "),
 
 		"A. P. T. file search": Text("apt-file search "),
