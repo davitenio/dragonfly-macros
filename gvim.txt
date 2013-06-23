@@ -63,6 +63,8 @@ cmd.map = {
 	"oh":                               Key("o"),
 	"p oh":                         Key("O"),
 
+	"cheese":			Key("tilde"),
+
 	"(delete | D.)":                       Key("d"),
 	"p (delete | D.)":                       Key("s-d"),
 	"change":                       Key("c"),
@@ -71,6 +73,7 @@ cmd.map = {
 	"[<n>] redo": Key("c-r:%(n)d"),
 	"insert":                       Key("i"),
 	"append":                       Key("a"),
+	"p append":                       Key("A"),
 
 	"[<n>] find <text>":                            Key("f") + Text("%(text)s"),
 	"[<n>] p find <text>":                            Key("F") + Text("%(text)s"),
