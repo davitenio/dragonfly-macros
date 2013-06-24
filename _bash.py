@@ -63,6 +63,8 @@ bash_rule = MappingRule(
 
 		"change mode": Text("chmod "),
 
+		"grep <text>": Text("grep %(text)s"),
+
 		"cat": Text("cat "),
 		"cat <text>": Text("cat %(text)s"),
 		"exit": Text("exit\n"),
@@ -94,6 +96,7 @@ bash_rule = MappingRule(
 		"paste": Key("c-y"),
 
 		"make": Text("make\n"),
+		"make clean": Text("make clean\n"),
 
 		"evince": Text("evince "),
 		"evince <text>": Text("evince %(text)s"),

@@ -61,34 +61,34 @@ cmd.map = {
 	"kay":                              Key("escape"),
 
 	"oh":                               Key("o"),
-	"p oh":                         Key("O"),
+	"shift oh":                         Key("O"),
 
 	"cheese":			Key("tilde"),
 
 	"(delete | D.)":                       Key("d"),
-	"p (delete | D.)":                       Key("s-d"),
+	"shift (delete | D.)":                       Key("s-d"),
 	"change":                       Key("c"),
-	"p change":                       Key("C"),
+	"shift change":                       Key("C"),
 	"[<n>] undo":                       Key("u:%(n)d"),
 	"[<n>] redo": Key("c-r:%(n)d"),
 	"insert":                       Key("i"),
 	"append":                       Key("a"),
-	"p append":                       Key("A"),
+	"shift append":                       Key("A"),
 
 	"[<n>] find <text>":                            Key("f") + Text("%(text)s"),
-	"[<n>] p find <text>":                            Key("F") + Text("%(text)s"),
+	"[<n>] shift find <text>":                            Key("F") + Text("%(text)s"),
 
 	"[<n>] until <text>":                            Key("t") + Text("%(text)s"),
-	"[<n>] p until <text>":                            Key("t") + Text("%(text)s"),
+	"[<n>] shift until <text>":                            Key("t") + Text("%(text)s"),
 
 	"yank":                             Key("y"),
-	"p yank":                       Key("Y"),
+	"shift yank":                       Key("Y"),
 
 	"paste":                            Key("p"),
-	"p paste":                      Key("P"),
+	"shift paste":                      Key("P"),
 
 	"replace":                            Key("r"),
-	"p replace":                      Key("R"),
+	"shift replace":                      Key("R"),
 
 	# Pete is shorthand for repeat
 	"Pete":                      Key("dot"),
