@@ -76,6 +76,10 @@ bash_rule = MappingRule(
 
 		"pipe": Text(" | "),
 
+		"D. P. K. G. ": Text("dpkg "),
+		"D. P. K. G. minus L.": Text("dpkg -l "),
+		"D. P. K. G. minus I.": Text("dpkg -i "),
+
 		"manual page": Text("man "),
 
 		"word count": Text("wc "),
