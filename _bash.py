@@ -149,7 +149,7 @@ git_rule = MappingRule(
 		"git kay all": Text("gitk --all\n"),
 
 		"git commit message": Text("git commit -m ''") + Key("left"),
-		"git commit": Text("git commit\n"),
+		"git commit": Text("git commit "),
 		"git commit --amend": Text("git commit --amend\n"),
 
 		"git check out": Text("git checkout "),
