@@ -142,10 +142,12 @@ git_rule = MappingRule(
 		"git branch": Text("git branch "),
 
 		"git log": Text("git log\n"),
+		"git log [color] words": Text("git log -p --color-words\n"),
 		"git log minus P.": Text("git log -p\n"),
 		"git log minus stat": Text("git log --stat\n"),
 
 		"git diff": Text("git diff\n"),
+		"git diff [color] words": Text("git diff --color-words\n"),
 		"git diff cache": Text("git diff --cached\n"),
 
 
