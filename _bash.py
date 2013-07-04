@@ -72,6 +72,7 @@ bash_rule = MappingRule(
 		"list": Text("ls\n"),
 		"list <text>": Text("ls %(text)s"),
 		"list minus L.": Text("ls -l\n"),
+		"list minus A.": Text("ls -a\n"),
 		"list minus one": Text("ls -1 "),
 
 		"pipe": Text(" | "),
@@ -138,12 +139,18 @@ git_rule = MappingRule(
 		"git status": Text("git status\n"),
 		"git patch": Text("git add -p\n"),
 
+		"git branch": Text("git branch "),
+
 		"git log": Text("git log\n"),
 		"git log minus P.": Text("git log -p\n"),
 		"git log minus stat": Text("git log --stat\n"),
 
 		"git diff": Text("git diff\n"),
 		"git diff cache": Text("git diff --cached\n"),
+
+
+		"git submodule init": Text("git submodule init "),
+		"git submodule update": Text("git submodule update "),
 
 		"git kay": Text("gitk\n"),
 		"git kay all": Text("gitk --all\n"),
