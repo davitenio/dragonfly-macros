@@ -279,8 +279,10 @@ class RepeatRule(CompoundRule):
 gvim_ex_rule = MappingRule(
 	name = "gvim_execute",
 	mapping = {
+		"execute": Text(":"),
 		"execute write file": Text(":w\n"),
 		"execute edit file": Text(":e "),
+		"execute tab edit (file)": Text(":tabe "),
 		"execute set ignore case": Text(":set ignorecase\n"),
 		},
 	extras = [
@@ -314,8 +316,8 @@ gvim_tabulator_rule = MappingRule(
 	name = "gvim_tabulators",
 	mapping = {
 		# tabulator navigation commands 
-		"tabulator next": Key("g,t"),
-		"tabulator previous": Key("g,T"),
+		"tab next": Key("g,t"),
+		"tab previous": Key("g,T"),
 		},
 	extras = [
 		]
