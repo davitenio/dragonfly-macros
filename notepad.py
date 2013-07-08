@@ -93,26 +93,26 @@ config.cmd.map    = Item(
     #  here.  Instead change the *config file* called "_multiedit.txt".
     {
      # Spoken-form    ->    ->    ->     Action object
-     "up [<n>]":                         Key("up:%(n)d"),
-     "down [<n>]":                       Key("down:%(n)d"),
-     "left [<n>]":                       Key("left:%(n)d"),
-     "right [<n>]":                      Key("right:%(n)d"),
-     "page up [<n>]":                    Key("pgup:%(n)d"),
-     "page down [<n>]":                  Key("pgdown:%(n)d"),
+     "[<n>] up":                         Key("up:%(n)d"),
+     "[<n>] down":                       Key("down:%(n)d"),
+     "[<n>] left":                       Key("left:%(n)d"),
+     "[<n>] right":                      Key("right:%(n)d"),
+     "[<n>] go up":                    Key("pgup:%(n)d"),
+     "[<n>] go down":                  Key("pgdown:%(n)d"),
      "up <n> (page | pages)":            Key("pgup:%(n)d"),
      "down <n> (page | pages)":          Key("pgdown:%(n)d"),
      "left <n> (word | words)":          Key("c-left:%(n)d"),
      "right <n> (word | words)":         Key("c-right:%(n)d"),
-     "home":                             Key("home"),
-     "end":                              Key("end"),
+     "hat":                             Key("home"),
+     "dollar":                              Key("end"),
      "doc home":                         Key("c-home"),
      "doc end":                          Key("c-end"),
 
      "space [<n>]":                      release + Key("space:%(n)d"),
      "enter [<n>]":                      release + Key("enter:%(n)d"),
      "tab [<n>]":                        Key("tab:%(n)d"),
-     "delete [<n>]":                     release + Key("del:%(n)d"),
-     "delete [<n> | this] (line|lines)": release + Key("home, s-down:%(n)d, del"),
+     "D. [<n>]":                     release + Key("del:%(n)d"),
+     "D. [<n> | this] (line|lines)": release + Key("home, s-down:%(n)d, del"),
      "backspace [<n>]":                  release + Key("backspace:%(n)d"),
      "pop up":                           release + Key("apps"),
 
@@ -127,7 +127,8 @@ config.cmd.map    = Item(
      "release control":                  Key("ctrl:up"),
      "release [all]":                    release,
 
-     "say <text>":                       release + Text("%(text)s"),
+     "save file":	                 Key("c-s"),
+
      "mimic <text>":                     release + Mimic(extra="text"),
     },
     namespace={

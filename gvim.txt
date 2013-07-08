@@ -51,6 +51,8 @@ cmd.map = {
 	"format": Key("g,q"),
 
 	"a paragraph": Key("a,p"),
+	"next paragraph": Key("rbrace"),
+	"previous paragraph": Key("lbrace"),
 
 	"space [<n>]":                      Key("space:%(n)d"),
 	"[<n>] slap":                       Key("enter:%(n)d"),
