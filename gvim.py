@@ -90,47 +90,93 @@ release = Key("shift:up, ctrl:up")
 config            = Config("gvim")
 config.cmd        = Section("Language section")
 config.cmd.map    = Item(
-    # Here we define the *default* command map.  If you would like to
-    #  modify it to your personal taste, please *do not* make changes
-    #  here.  Instead change the *config file* called "_multiedit.txt".
     {
-     # Spoken-form    ->    ->    ->     Action object
-     "up [<n>]":                         Key("up:%(n)d"),
-     "down [<n>]":                       Key("down:%(n)d"),
-     "left [<n>]":                       Key("left:%(n)d"),
-     "right [<n>]":                      Key("right:%(n)d"),
-     "page up [<n>]":                    Key("pgup:%(n)d"),
-     "page down [<n>]":                  Key("pgdown:%(n)d"),
-     "up <n> (page | pages)":            Key("pgup:%(n)d"),
-     "down <n> (page | pages)":          Key("pgdown:%(n)d"),
-     "left <n> (word | words)":          Key("c-left:%(n)d"),
-     "right <n> (word | words)":         Key("c-right:%(n)d"),
-     "home":                             Key("home"),
-     "end":                              Key("end"),
-     "doc home":                         Key("c-home"),
-     "doc end":                          Key("c-end"),
+	# Spoken-form    ->    ->    ->     Action object
 
-     "space [<n>]":                      release + Key("space:%(n)d"),
-     "enter [<n>]":                      release + Key("enter:%(n)d"),
-     "tab [<n>]":                        Key("tab:%(n)d"),
-     "delete [<n>]":                     release + Key("del:%(n)d"),
-     "delete [<n> | this] (line|lines)": release + Key("home, s-down:%(n)d, del"),
-     "backspace [<n>]":                  release + Key("backspace:%(n)d"),
-     "pop up":                           release + Key("apps"),
+	"[<n>] up":                         Key("k:%(n)d"),
+	"[<n>] down":                       Key("j:%(n)d"),
+	"[<n>] left":                       Key("h:%(n)d"),
+	"[<n>] right":                      Key("l:%(n)d"),
+	"go up [<n>]":                    Key("c-b:%(n)d"),
+	"go down [<n>]":                  Key("c-f:%(n)d"),
+	"up <n> (page | pages)":            Key("pgup:%(n)d"),
+	"down <n> (page | pages)":          Key("pgdown:%(n)d"),
+	"left <n> (word | words)":          Key("c-left:%(n)d"),
+	"right <n> (word | words)":         Key("c-right:%(n)d"),
+	"hat":                              Key("caret"),
+	"dollar":                           Key("dollar"),
+	"match":                          Key("percent"),
+	"doc home":                         Key("c-home"),
+	"doc end":                          Key("c-end"),
 
-     "paste":                            release + Key("c-v"),
-     "duplicate <n>":                    release + Key("c-c, c-v:%(n)d"),
-     "copy":                             release + Key("c-c"),
-     "cut":                              release + Key("c-x"),
-     "select all":                       release + Key("c-a"),
-     "[hold] shift":                     Key("shift:down"),
-     "release shift":                    Key("shift:up"),
-     "[hold] control":                   Key("ctrl:down"),
-     "release control":                  Key("ctrl:up"),
-     "release [all]":                    release,
+	"visual":                          Key("v"),
+	"visual line":                          Key("s-v"),
+	"visual block":                          Key("c-v"),
 
-     "say <text>":                       release + Text("%(text)s"),
-     "mimic <text>":                     release + Mimic(extra="text"),
+	"next": Key("n"),
+	"previous": Key("N"),
+	"[<n>] back": Key("b:%(n)d"),
+	"[<n>] whiskey": Key("w:%(n)d"),
+	"[<n>] end": Key("e:%(n)d"),
+
+	"Center": Key("z,dot"),
+	"format": Key("g,q"),
+
+	"a parentheses": Key("a,rparen"),
+	"inner parentheses": Key("i,rparen"),
+
+	"inner": Key("i"),
+	"a": Key("a"),
+
+	"a paragraph": Key("a,p"),
+	"inner paragraph": Key("i,p"),
+	"next paragraph": Key("rbrace"),
+	"previous paragraph": Key("lbrace"),
+
+	"space [<n>]":                      Key("space:%(n)d"),
+	"[<n>] slap":                       Key("enter:%(n)d"),
+	"[<n>] tab":                        Key("tab:%(n)d"),
+	"[<n>] X.":            	       Key("x:%(n)d"),
+	"[<n>] backspace":                  Key("backspace:%(n)d"),
+
+	"kay":                              Key("escape"),
+
+	"oh":                               Key("o"),
+	"shift oh":                         Key("O"),
+
+	"cheese":			Key("tilde"),
+
+	"(delete | D.)":                       Key("d"),
+	"shift (delete | D.)":                       Key("s-d"),
+	"change":                       Key("c"),
+	"shift change":                       Key("C"),
+	"[<n>] undo":                       Key("u:%(n)d"),
+	"[<n>] redo": Key("c-r:%(n)d"),
+	"shift insert":                       Key("I"),
+	"insert":                       Key("i"),
+	"append":                       Key("a"),
+	"shift append":                       Key("A"),
+
+	"[<n>] find":                            Key("f"),
+	"[<n>] shift find":                            Key("F"),
+
+	"[<n>] until":                            Key("t"),
+	"[<n>] shift until":                            Key("t"),
+
+	"yank":                             Key("y"),
+	"shift yank":                       Key("Y"),
+
+	"paste":                            Key("p"),
+	"shift paste":                      Key("P"),
+
+	"replace":                            Key("r"),
+	"shift replace":                      Key("R"),
+
+	# Pete is shorthand for repeat
+	"Pete":                      Key("dot"),
+
+	"say <text>":                       release + Text("%(text)s"),
+	"mimic <text>":                     release + Mimic(extra="text"),
     },
     namespace={
      "Key":   Key,
