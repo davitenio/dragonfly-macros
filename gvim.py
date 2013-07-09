@@ -316,8 +316,8 @@ gvim_tabulator_rule = MappingRule(
 	name = "gvim_tabulators",
 	mapping = {
 		# tabulator navigation commands 
-		"tab next": Key("g,t"),
-		"tab previous": Key("g,T"),
+		"tabby next": Key("g,t"),
+		"tabby previous": Key("g,T"),
 		},
 	extras = [
 		]

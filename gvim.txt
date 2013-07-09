@@ -38,19 +38,31 @@ cmd.map = {
 	"right <n> (word | words)":         Key("c-right:%(n)d"),
 	"hat":                              Key("caret"),
 	"dollar":                           Key("dollar"),
+	"match":                          Key("percent"),
 	"doc home":                         Key("c-home"),
 	"doc end":                          Key("c-end"),
+
+	"visual":                          Key("v"),
+	"visual line":                          Key("s-v"),
+	"visual block":                          Key("c-v"),
 
 	"next": Key("n"),
 	"previous": Key("N"),
 	"[<n>] back": Key("b:%(n)d"),
 	"[<n>] whiskey": Key("w:%(n)d"),
-	"[<n>] echo": Key("e:%(n)d"),
+	"[<n>] end": Key("e:%(n)d"),
 
 	"Center": Key("z,dot"),
 	"format": Key("g,q"),
 
+	"a parentheses": Key("a,rparen"),
+	"inner parentheses": Key("i,rparen"),
+
+	"inner": Key("i"),
+	"a": Key("a"),
+
 	"a paragraph": Key("a,p"),
+	"inner paragraph": Key("i,p"),
 	"next paragraph": Key("rbrace"),
 	"previous paragraph": Key("lbrace"),
 
@@ -73,15 +85,16 @@ cmd.map = {
 	"shift change":                       Key("C"),
 	"[<n>] undo":                       Key("u:%(n)d"),
 	"[<n>] redo": Key("c-r:%(n)d"),
+	"shift insert":                       Key("I"),
 	"insert":                       Key("i"),
 	"append":                       Key("a"),
 	"shift append":                       Key("A"),
 
-	"[<n>] find <text>":                            Key("f") + Text("%(text)s"),
-	"[<n>] shift find <text>":                            Key("F") + Text("%(text)s"),
+	"[<n>] find":                            Key("f"),
+	"[<n>] shift find":                            Key("F"),
 
-	"[<n>] until <text>":                            Key("t") + Text("%(text)s"),
-	"[<n>] shift until <text>":                            Key("t") + Text("%(text)s"),
+	"[<n>] until":                            Key("t"),
+	"[<n>] shift until":                            Key("t"),
 
 	"yank":                             Key("y"),
 	"shift yank":                       Key("Y"),
