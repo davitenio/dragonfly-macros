@@ -609,14 +609,25 @@ class InsertModeEnabler(CompoundRule):
 
 class InsertModeDisabler(CompoundRule):
     # spoken command to exit InsertMode
-    spec = "kay"
+    spec = "<command>"
+    extras = [Choice("command", {
+                              "kay": "okay",
+                              "cancel": "cancel",
+                             }
+                    )
+             ]
     
     def _process_recognition(self, node, extras):
         InsertModeGrammar.disable()
         InsertModeBootstrap.enable()
         normalModeGrammar.enable()
 	Key("escape").execute()
-        print "Insert command exited"
+	if extras["command"] == "cancel":
+		Key("u").execute()
+		print "Insert command canceled"
+	else:
+		print "Insert command accepted"
+
 
 # This is a test rule to see if the InsertMode grammar is enabled
 class InsertModeTestRule(CompoundRule):
