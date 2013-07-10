@@ -263,13 +263,8 @@ config.cmd.map    = Item(
 	"next paragraph": Key("rbrace"),
 	"previous paragraph": Key("lbrace"),
 
-	"space [<n>]":                      Key("space:%(n)d"),
-	"[<n>] slap":                       Key("enter:%(n)d"),
-	"[<n>] tab":                        Key("tab:%(n)d"),
 	"[<n>] X.":            	       Key("x:%(n)d"),
 	"[<n>] backspace":                  Key("backspace:%(n)d"),
-
-	"kay":                              Key("escape"),
 
 
 	"cheese":			Key("tilde"),
@@ -587,10 +582,13 @@ class InsertModeEnabler(CompoundRule):
     extras = [Choice("command", {
                               "insert": "i",
                               "shift insert": "I",
+
                               "change": "c",
                               "shift change": "C",
+
                               "append": "a",
                               "shift append": "A",
+
                               "oh": "o",
                               "shift oh": "O",
                              }
@@ -641,11 +639,16 @@ class InsertModeCommands(MappingRule):
 	mapping  = {
 		"<text>": Text("%(text)s"),
 		"(scratch|delete)": Key("c-w"),
-		"slap": Key("enter"),
+		"[<n>] slap": Key("enter:%(n)d"),
+		"[<n>] tab": Key("tab:%(n)d"),
 	}    
 	extras = [
 		Dictation("text"),
+		IntegerRef("n", 1, 50),
 	]
+	defaults = {
+		"n": 1,
+	}
 
 
 #---------------------------------------------------------------------------
