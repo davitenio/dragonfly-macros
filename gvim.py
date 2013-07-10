@@ -461,23 +461,6 @@ class RepeatRule(CompoundRule):
 
 #---------------------------------------------------------------------------
 
-gvim_ex_rule = MappingRule(
-	name = "gvim_execute",
-	mapping = {
-		"execute": Text(":"),
-		"execute write file": Text(":w\n"),
-		"execute edit file": Text(":e "),
-		"execute tab edit (file)": Text(":tabe "),
-		"execute set ignore case": Text(":set ignorecase\n"),
-		},
-	extras = [
-		Dictation("text"),
-		]
-)
-
-
-#---------------------------------------------------------------------------
-
 gvim_window_rule = MappingRule(
 	name = "gvim_window",
 	mapping = {
@@ -548,16 +531,85 @@ gvim_navigation_rule = MappingRule(
 )
 
 #---------------------------------------------------------------------------
+
+
+class ExModeEnabler(CompoundRule):
+    spec = "execute"                  # Spoken command to enable the ExMode grammar.
+    
+    def _process_recognition(self, node, extras):   # Callback when command is spoken.
+        ExModeBootstrap.disable()
+        ExModeGrammar.enable()
+	Key("colon").execute()
+        print "ExMode grammar enabled"
+        print "Available commands:"
+	print '  \n'.join(ExModeCommands.mapping.keys())
+
+class ExModeOkayDisabler(CompoundRule):
+    # spoken command to accept ExMode command
+    spec = "(Okay|kay)" 
+    
+    def _process_recognition(self, node, extras):   # Callback when command is spoken.
+        ExModeGrammar.disable()
+        ExModeBootstrap.enable()
+	Key("enter").execute()
+        print "Ex command accepted"
+
+class ExModeCancelDisabler(CompoundRule):
+    # spoken command to cancel ExMode
+    spec = "cancel"
+    
+    def _process_recognition(self, node, extras):
+        ExModeGrammar.disable()
+        ExModeBootstrap.enable()
+	Key("escape").execute()
+        print "Ex command canceled"
+
+# This is a test rule to see if the ExMode grammar is enabled
+class ExModeTestRule(CompoundRule):
+    spec = "test Ex-Mode"                  # Spoken form of command.
+    
+    def _process_recognition(self, node, extras):   # Callback when command is spoken.
+        print "ExMode grammar tested"
+
+# handles ExMode control structures
+class ExModeCommands(MappingRule):
+    mapping  = {
+		"write": Text("w "),
+		"edit": Text("e "),
+		"tab edit": Text("tabe "),
+		"set number": Text("set number "),
+		"set relative number": Text("set relativenumber "),
+		"set ignore case": Text("set ignorecase "),
+		"set no ignore case": Text("set noignorecase "),
+		"set file format UNIX": Text("set fileformat=unix "),
+		"set file format DOS": Text("set fileformat=dos "),
+               }    
+
+
+#---------------------------------------------------------------------------
 # Create and load this module's grammar.
 
 gvim_context = AppContext(executable="gvim")
+
+# The main ExMode grammar rules are activated here
+ExModeBootstrap = Grammar("ExMode bootstrap", context=gvim_context)                
+ExModeBootstrap.add_rule(ExModeEnabler())
+ExModeBootstrap.load()
+
+ExModeGrammar = Grammar("ExMode grammar", context=gvim_context)
+ExModeGrammar.add_rule(ExModeTestRule())
+ExModeGrammar.add_rule(ExModeCommands())
+ExModeGrammar.add_rule(ExModeOkayDisabler())
+ExModeGrammar.add_rule(ExModeCancelDisabler())
+ExModeGrammar.load()
+ExModeGrammar.disable()
+
 grammar = Grammar("gvim", context=gvim_context)
 grammar.add_rule(RepeatRule())
 grammar.add_rule(gvim_window_rule)
 grammar.add_rule(gvim_tabulator_rule)
 grammar.add_rule(gvim_general_rule)
 grammar.add_rule(gvim_navigation_rule)
-grammar.add_rule(gvim_ex_rule)
 
 grammar.load()                    # Load the grammar.
 
@@ -566,3 +618,7 @@ def unload():
     global grammar
     if grammar: grammar.unload()
     grammar = None
+
+    global ExModeGrammar
+    if ExModeGrammar: ExModeGrammar.unload()
+    ExModeGrammar = None
