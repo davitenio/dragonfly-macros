@@ -298,7 +298,7 @@ config.cmd.map	= Item(
 	"shift replace": Key("R"),
 
 	# Pete is shorthand for repeat
-	"Pete": Key("dot"),
+	"[<n>] Pete": Key("dot:%(n)d"),
 
 	"mimic <text>": release + Mimic(extra="text"),
 	},
