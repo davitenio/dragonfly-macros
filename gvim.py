@@ -271,21 +271,13 @@ config.cmd.map    = Item(
 
 	"kay":                              Key("escape"),
 
-	"oh":                               Key("o"),
-	"shift oh":                         Key("O"),
 
 	"cheese":			Key("tilde"),
 
 	"(delete | D.)":                       Key("d"),
 	"shift (delete | D.)":                       Key("s-d"),
-	"change":                       Key("c"),
-	"shift change":                       Key("C"),
 	"[<n>] undo":                       Key("u:%(n)d"),
 	"[<n>] redo": Key("c-r:%(n)d"),
-	"shift insert":                       Key("I"),
-	"insert":                       Key("i"),
-	"append":                       Key("a"),
-	"shift append":                       Key("A"),
 
 	'[<n>] find <letter>': Text('%(n)df') + Function(executeLetter),
 	'[<n>] shift find <letter>': Text('%(n)dF') + Function(executeLetter),
@@ -590,7 +582,61 @@ class ExModeCommands(MappingRule):
 
 
 #---------------------------------------------------------------------------
-# Create and load this module's grammar.
+
+class InsertModeEnabler(CompoundRule):
+    spec = "<command>"
+    extras = [Choice("command", {
+                              "insert": "i",
+                              "shift insert": "I",
+                              "change": "c",
+                              "shift change": "C",
+                              "append": "a",
+                              "shift append": "A",
+                              "oh": "o",
+                              "shift oh": "O",
+                             }
+                    )
+             ]
+    def _process_recognition(self, node, extras):
+        InsertModeBootstrap.disable()
+        normalModeGrammar.disable()
+        InsertModeGrammar.enable()
+        key = Key(extras["command"])
+	key.execute()
+        print "InsertMode grammar enabled"
+        print "Available commands:"
+	print '  \n'.join(InsertModeCommands.mapping.keys())
+
+
+class InsertModeDisabler(CompoundRule):
+    # spoken command to exit InsertMode
+    spec = "kay"
+    
+    def _process_recognition(self, node, extras):
+        InsertModeGrammar.disable()
+        InsertModeBootstrap.enable()
+        normalModeGrammar.enable()
+	Key("escape").execute()
+        print "Insert command exited"
+
+# This is a test rule to see if the InsertMode grammar is enabled
+class InsertModeTestRule(CompoundRule):
+    spec = "test Insert Mode"                  # Spoken form of command.
+    
+    def _process_recognition(self, node, extras):   # Callback when command is spoken.
+        print "InsertMode grammar tested"
+
+# handles InsertMode control structures
+class InsertModeCommands(MappingRule):
+	mapping  = {
+		"<text>": Text("%(text)s"),
+	}    
+	extras = [
+		Dictation("text"),
+	]
+
+
+#---------------------------------------------------------------------------
 
 gvim_context = AppContext(executable="gvim")
 
@@ -606,6 +652,21 @@ ExModeGrammar.add_rule(ExModeOkayDisabler())
 ExModeGrammar.add_rule(ExModeCancelDisabler())
 ExModeGrammar.load()
 ExModeGrammar.disable()
+
+
+
+InsertModeBootstrap = Grammar("InsertMode bootstrap", context=gvim_context)                
+InsertModeBootstrap.add_rule(InsertModeEnabler())
+InsertModeBootstrap.load()
+
+InsertModeGrammar = Grammar("InsertMode grammar", context=gvim_context)
+InsertModeGrammar.add_rule(InsertModeTestRule())
+InsertModeGrammar.add_rule(InsertModeCommands())
+InsertModeGrammar.add_rule(InsertModeDisabler())
+InsertModeGrammar.load()
+InsertModeGrammar.disable()
+
+
 
 normalModeGrammar = Grammar("gvim", context=gvim_context)
 normalModeGrammar.add_rule(RepeatRule())
