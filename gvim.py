@@ -289,10 +289,16 @@ config.cmd.map    = Item(
 
 	'[<n>] find <letter>': Text('%(n)df') + Function(executeLetter),
 	'[<n>] shift find <letter>': Text('%(n)dF') + Function(executeLetter),
+	'find [<n>] <letter>': Text('%(n)df') + Function(executeLetter),
+	'shift find [<n>] <letter>': Text('%(n)dF') + Function(executeLetter),
 
+	'[<n>] again': Text('%(n)d;'),
+	'[<n>] shift again': Text('%(n)d,'),
 
-	"[<n>] until":                            Key("t"),
-	"[<n>] shift until":                            Key("t"),
+	'[<n>] until <letter>': Text('%(n)dt') + Function(executeLetter),
+	'[<n>] shift until <letter>': Text('%(n)dT') + Function(executeLetter),
+	'until [<n>] <letter>': Text('%(n)dt') + Function(executeLetter),
+	'shift until [<n>] <letter>': Text('%(n)dT') + Function(executeLetter),
 
 	"yank":                             Key("y"),
 	"shift yank":                       Key("Y"),
