@@ -569,7 +569,7 @@ class ExModeTestRule(CompoundRule):
 class ExModeCommands(MappingRule):
     mapping  = {
 		"write": Text("w "),
-		"edit": Text("e "),
+		"edit file": Text("e "),
 		"tab edit": Text("tabe "),
 		"set number": Text("set number "),
 		"set relative number": Text("set relativenumber "),
@@ -640,6 +640,8 @@ class InsertModeTestRule(CompoundRule):
 class InsertModeCommands(MappingRule):
 	mapping  = {
 		"<text>": Text("%(text)s"),
+		"(scratch|delete)": Key("c-w"),
+		"slap": Key("enter"),
 	}    
 	extras = [
 		Dictation("text"),
@@ -650,11 +652,10 @@ class InsertModeCommands(MappingRule):
 
 gvim_context = AppContext(executable="gvim")
 
-# The main ExMode grammar rules are activated here
+# set up the grammar for vim's ex mode
 exModeBootstrap = Grammar("ExMode bootstrap", context=gvim_context)                
 exModeBootstrap.add_rule(ExModeEnabler())
 exModeBootstrap.load()
-
 ExModeGrammar = Grammar("ExMode grammar", context=gvim_context)
 ExModeGrammar.add_rule(ExModeTestRule())
 ExModeGrammar.add_rule(ExModeCommands())
@@ -665,10 +666,10 @@ ExModeGrammar.disable()
 
 
 
-InsertModeBootstrap = Grammar("InsertMode bootstrap", context=gvim_context)                
+# set up the grammar for vim's insert mode
+InsertModeBootstrap = Grammar("InsertMode bootstrap", context=gvim_context)
 InsertModeBootstrap.add_rule(InsertModeEnabler())
 InsertModeBootstrap.load()
-
 InsertModeGrammar = Grammar("InsertMode grammar", context=gvim_context)
 InsertModeGrammar.add_rule(InsertModeTestRule())
 InsertModeGrammar.add_rule(InsertModeCommands())
@@ -678,14 +679,16 @@ InsertModeGrammar.disable()
 
 
 
+# set up the grammar for vim's normal mode and start normal mode
 normalModeGrammar = Grammar("gvim", context=gvim_context)
 normalModeGrammar.add_rule(RepeatRule())
 normalModeGrammar.add_rule(gvim_window_rule)
 normalModeGrammar.add_rule(gvim_tabulator_rule)
 normalModeGrammar.add_rule(gvim_general_rule)
 normalModeGrammar.add_rule(gvim_navigation_rule)
+normalModeGrammar.load()
 
-normalModeGrammar.load()                    # Load the grammar.
+
 
 # Unload function which will be called at unload time.
 def unload():
@@ -696,3 +699,7 @@ def unload():
     global ExModeGrammar
     if ExModeGrammar: ExModeGrammar.unload()
     ExModeGrammar = None
+
+    global InsertModeGrammar
+    if InsertModeGrammar: InsertModeGrammar.unload()
+    InsertModeGrammar = None
