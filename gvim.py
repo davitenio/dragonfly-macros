@@ -525,29 +525,29 @@ class ExModeEnabler(CompoundRule):
 		print "ExMode grammar enabled"
 		print "Available commands:"
 		print '  \n'.join(ExModeCommands.mapping.keys())
+		print "\n(EX MODE)"
 
-class ExModeOkayDisabler(CompoundRule):
-	# spoken command to accept ExMode command
-	spec = "(Okay|kay)" 
-	
-	# Callback when command is spoken.
-	def _process_recognition(self, node, extras):
-		ExModeGrammar.disable()
-		exModeBootstrap.enable()
-		normalModeGrammar.enable()
-		Key("enter").execute()
-		print "Ex command accepted"
 
-class ExModeCancelDisabler(CompoundRule):
-	# spoken command to cancel ExMode
-	spec = "cancel"
+
+class ExModeDisabler(CompoundRule):
+	# spoken command to exit ex mode
+	spec = "<command>"
+	extras = [Choice("command", {
+		"kay": "okay",
+		"cancel": "cancel",
+	})]
 	
 	def _process_recognition(self, node, extras):
 		ExModeGrammar.disable()
 		exModeBootstrap.enable()
 		normalModeGrammar.enable()
-		Key("escape").execute()
-		print "Ex command canceled"
+		if extras["command"] == "cancel":
+			print "ex mode command canceled"
+			Key("escape").execute()
+		else:
+			print "ex mode command accepted"
+			Key("enter").execute()
+		print "\n(NORMAL)"
 
 # This is a test rule to see if the ExMode grammar is enabled
 class ExModeTestRule(CompoundRule):
@@ -587,6 +587,9 @@ class InsertModeEnabler(CompoundRule):
 		"shift insert": "I",
 
 		"change": "c",
+		"change whiskey": "cw",
+		"change (echo|end)": "ce",
+		"change a paragraph": "cap",
 		"shift change": "C",
 
 		"append": "a",
@@ -600,11 +603,13 @@ class InsertModeEnabler(CompoundRule):
 		InsertModeBootstrap.disable()
 		normalModeGrammar.disable()
 		InsertModeGrammar.enable()
-		key = Key(extras["command"])
-		key.execute()
-		print "InsertMode grammar enabled"
+		for char in extras["command"]:
+			key = Key(char)
+			key.execute()
 		print "Available commands:"
 		print '  \n'.join(InsertModeCommands.mapping.keys())
+		print "\n(INSERT)"
+
 
 
 class InsertModeDisabler(CompoundRule):
@@ -625,6 +630,7 @@ class InsertModeDisabler(CompoundRule):
 			print "Insert command canceled"
 		else:
 			print "Insert command accepted"
+		print "\n(NORMAL)"
 
 
 # This is a test rule to see if the InsertMode grammar is enabled
@@ -666,8 +672,7 @@ exModeBootstrap.load()
 ExModeGrammar = Grammar("ExMode grammar", context=gvim_context)
 ExModeGrammar.add_rule(ExModeTestRule())
 ExModeGrammar.add_rule(ExModeCommands())
-ExModeGrammar.add_rule(ExModeOkayDisabler())
-ExModeGrammar.add_rule(ExModeCancelDisabler())
+ExModeGrammar.add_rule(ExModeDisabler())
 ExModeGrammar.load()
 ExModeGrammar.disable()
 
