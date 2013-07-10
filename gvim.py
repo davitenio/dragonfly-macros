@@ -203,17 +203,6 @@ def executeLetterSequence(letter_sequence):
 	for letter in letter_sequence:
 		letter.execute()
 
-def findOnce(letter, n):
-	Key('f').execute()
-	letter.execute()
-
-def find(letter, n):
-	f = Key('f')
-	for i in range(n):
-		f.execute()
-		letter.execute()
-
-
 #---------------------------------------------------------------------------
 # Set up this module's configuration.
 
@@ -240,9 +229,9 @@ config.cmd.map	= Item(
 	"doc home": Key("c-home"),
 	"doc end": Key("c-end"),
 
-	"visual": Key("v"),
-	"visual line": Key("s-v"),
-	"visual block": Key("c-v"),
+	"vizzi": Key("v"),
+	"vizzi line": Key("s-v"),
+	"vizzi block": Key("c-v"),
 
 	"next": Key("n"),
 	"previous": Key("N"),
@@ -571,8 +560,10 @@ class ExModeTestRule(CompoundRule):
 # handles ExMode control structures
 class ExModeCommands(MappingRule):
 	mapping  = {
+		"read": Text("r "),
 		"write": Text("w "),
-		"edit file": Text("e "),
+		"write and quit": Text("wq\n"),
+		"edit": Text("e "),
 		"tab edit": Text("tabe "),
 		"set number": Text("set number "),
 		"set relative number": Text("set relativenumber "),
@@ -580,6 +571,10 @@ class ExModeCommands(MappingRule):
 		"set no ignore case": Text("set noignorecase "),
 		"set file format UNIX": Text("set fileformat=unix "),
 		"set file format DOS": Text("set fileformat=dos "),
+		"help": Text("help"),
+		"substitute": Text("s/"),
+		"up": Key("up"),
+		"down": Key("down"),
 	}	
 
 
@@ -646,6 +641,10 @@ class InsertModeCommands(MappingRule):
 		"(scratch|delete)": Key("c-w"),
 		"[<n>] slap": Key("enter:%(n)d"),
 		"[<n>] tab": Key("tab:%(n)d"),
+		"[<n>] backspace": Key("backspace:%(n)d"),
+		"undo": Key("c-u"),
+		"[<n>] left": Key("left:%(n)d"),
+		"[<n>] right": Key("right:%(n)d"),
 	}	
 	extras = [
 		Dictation("text"),
