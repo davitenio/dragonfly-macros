@@ -537,7 +537,8 @@ class ExModeEnabler(CompoundRule):
     spec = "execute"                  # Spoken command to enable the ExMode grammar.
     
     def _process_recognition(self, node, extras):   # Callback when command is spoken.
-        ExModeBootstrap.disable()
+        exModeBootstrap.disable()
+        normalModeGrammar.disable()
         ExModeGrammar.enable()
 	Key("colon").execute()
         print "ExMode grammar enabled"
@@ -550,7 +551,8 @@ class ExModeOkayDisabler(CompoundRule):
     
     def _process_recognition(self, node, extras):   # Callback when command is spoken.
         ExModeGrammar.disable()
-        ExModeBootstrap.enable()
+        exModeBootstrap.enable()
+        normalModeGrammar.enable()
 	Key("enter").execute()
         print "Ex command accepted"
 
@@ -560,7 +562,8 @@ class ExModeCancelDisabler(CompoundRule):
     
     def _process_recognition(self, node, extras):
         ExModeGrammar.disable()
-        ExModeBootstrap.enable()
+        exModeBootstrap.enable()
+        normalModeGrammar.enable()
 	Key("escape").execute()
         print "Ex command canceled"
 
@@ -592,9 +595,9 @@ class ExModeCommands(MappingRule):
 gvim_context = AppContext(executable="gvim")
 
 # The main ExMode grammar rules are activated here
-ExModeBootstrap = Grammar("ExMode bootstrap", context=gvim_context)                
-ExModeBootstrap.add_rule(ExModeEnabler())
-ExModeBootstrap.load()
+exModeBootstrap = Grammar("ExMode bootstrap", context=gvim_context)                
+exModeBootstrap.add_rule(ExModeEnabler())
+exModeBootstrap.load()
 
 ExModeGrammar = Grammar("ExMode grammar", context=gvim_context)
 ExModeGrammar.add_rule(ExModeTestRule())
@@ -604,20 +607,20 @@ ExModeGrammar.add_rule(ExModeCancelDisabler())
 ExModeGrammar.load()
 ExModeGrammar.disable()
 
-grammar = Grammar("gvim", context=gvim_context)
-grammar.add_rule(RepeatRule())
-grammar.add_rule(gvim_window_rule)
-grammar.add_rule(gvim_tabulator_rule)
-grammar.add_rule(gvim_general_rule)
-grammar.add_rule(gvim_navigation_rule)
+normalModeGrammar = Grammar("gvim", context=gvim_context)
+normalModeGrammar.add_rule(RepeatRule())
+normalModeGrammar.add_rule(gvim_window_rule)
+normalModeGrammar.add_rule(gvim_tabulator_rule)
+normalModeGrammar.add_rule(gvim_general_rule)
+normalModeGrammar.add_rule(gvim_navigation_rule)
 
-grammar.load()                    # Load the grammar.
+normalModeGrammar.load()                    # Load the grammar.
 
 # Unload function which will be called at unload time.
 def unload():
-    global grammar
-    if grammar: grammar.unload()
-    grammar = None
+    global normalModeGrammar
+    if normalModeGrammar: normalModeGrammar.unload()
+    normalModeGrammar = None
 
     global ExModeGrammar
     if ExModeGrammar: ExModeGrammar.unload()
