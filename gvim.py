@@ -47,12 +47,12 @@ editing and cursor movement.  This command's structure can
 be represented by the following simplified language model:
 
  - *CommandRule* -- top-level rule which the user can say
-    - *repetition* -- sequence of actions (name = "sequence")
-       - *KeystrokeRule* -- rule that maps a single 
-         spoken-form to an action
-    - *optional* -- optional specification of repeat count
-       - *integer* -- repeat count (name = "n")
-       - *literal* -- "times"
+	- *repetition* -- sequence of actions (name = "sequence")
+	   - *KeystrokeRule* -- rule that maps a single 
+		 spoken-form to an action
+	- *optional* -- optional specification of repeat count
+	   - *integer* -- repeat count (name = "n")
+	   - *literal* -- "times"
 
 The top-level command rule has a callback method which is 
 called when this voice command is recognized.  The logic 
@@ -67,10 +67,10 @@ within this callback is very simple:
 """
 
 try:
-    import pkg_resources
-    pkg_resources.require("dragonfly >= 0.6.5beta1.dev-r99")
+	import pkg_resources
+	pkg_resources.require("dragonfly >= 0.6.5beta1.dev-r99")
 except ImportError:
-    pass
+	pass
 
 from dragonfly import *
 
@@ -176,7 +176,8 @@ class LetterRule(MappingRule):
 		'percent': Key('percent'),
 		'plus': Key('plus'),
 		'question': Key('question'),
-#'semicolon': Key('semicolon'), # Getting Invalid key name: 'semicolon'
+		# Getting Invalid key name: 'semicolon'
+		#'semicolon': Key('semicolon'),
 		'slash': Key('slash'),
 		'[single] quote': Key('squote'),
 		'tilde': Key('tilde'),
@@ -217,31 +218,31 @@ def find(letter, n):
 # Set up this module's configuration.
 
 # This defines a configuration object with the name "gvim".
-config            = Config("gvim")
-config.cmd        = Section("Language section")
-config.cmd.map    = Item(
-    {
-	# Spoken-form    ->    ->    ->     Action object
+config			= Config("gvim")
+config.cmd		= Section("Language section")
+config.cmd.map	= Item(
+	{
+	# Spoken-form	->	->	->	 Action object
 
-	"[<n>] up":                         Key("k:%(n)d"),
-	"[<n>] down":                       Key("j:%(n)d"),
-	"[<n>] left":                       Key("h:%(n)d"),
-	"[<n>] right":                      Key("l:%(n)d"),
-	"go up [<n>]":                    Key("c-b:%(n)d"),
-	"go down [<n>]":                  Key("c-f:%(n)d"),
-	"up <n> (page | pages)":            Key("pgup:%(n)d"),
-	"down <n> (page | pages)":          Key("pgdown:%(n)d"),
-	"left <n> (word | words)":          Key("c-left:%(n)d"),
-	"right <n> (word | words)":         Key("c-right:%(n)d"),
-	"hat":                              Key("caret"),
-	"dollar":                           Key("dollar"),
-	"match":                          Key("percent"),
-	"doc home":                         Key("c-home"),
-	"doc end":                          Key("c-end"),
+	"[<n>] up": Key("k:%(n)d"),
+	"[<n>] down": Key("j:%(n)d"),
+	"[<n>] left": Key("h:%(n)d"),
+	"[<n>] right": Key("l:%(n)d"),
+	"go up [<n>]": Key("c-b:%(n)d"),
+	"go down [<n>]": Key("c-f:%(n)d"),
+	"up <n> (page | pages)": Key("pgup:%(n)d"),
+	"down <n> (page | pages)": Key("pgdown:%(n)d"),
+	"left <n> (word | words)": Key("c-left:%(n)d"),
+	"right <n> (word | words)": Key("c-right:%(n)d"),
+	"hat": Key("caret"),
+	"dollar": Key("dollar"),
+	"match": Key("percent"),
+	"doc home": Key("c-home"),
+	"doc end": Key("c-end"),
 
-	"visual":                          Key("v"),
-	"visual line":                          Key("s-v"),
-	"visual block":                          Key("c-v"),
+	"visual": Key("v"),
+	"visual line": Key("s-v"),
+	"visual block": Key("c-v"),
 
 	"next": Key("n"),
 	"previous": Key("N"),
@@ -263,15 +264,15 @@ config.cmd.map    = Item(
 	"next paragraph": Key("rbrace"),
 	"previous paragraph": Key("lbrace"),
 
-	"[<n>] X.":            	       Key("x:%(n)d"),
-	"[<n>] backspace":                  Key("backspace:%(n)d"),
+	"[<n>] X.": Key("x:%(n)d"),
+	"[<n>] backspace": Key("backspace:%(n)d"),
 
 
-	"cheese":			Key("tilde"),
+	"cheese": Key("tilde"),
 
-	"(delete | D.)":                       Key("d"),
-	"shift (delete | D.)":                       Key("s-d"),
-	"[<n>] undo":                       Key("u:%(n)d"),
+	"(delete | D.)": Key("d"),
+	"shift (delete | D.)": Key("s-d"),
+	"[<n>] undo": Key("u:%(n)d"),
 	"[<n>] redo": Key("c-r:%(n)d"),
 
 	'[<n>] find <letter>': Text('%(n)df') + Function(executeLetter),
@@ -287,24 +288,24 @@ config.cmd.map    = Item(
 	'until [<n>] <letter>': Text('%(n)dt') + Function(executeLetter),
 	'shift until [<n>] <letter>': Text('%(n)dT') + Function(executeLetter),
 
-	"yank":                             Key("y"),
-	"shift yank":                       Key("Y"),
+	"yank": Key("y"),
+	"shift yank": Key("Y"),
 
-	"paste":                            Key("p"),
-	"shift paste":                      Key("P"),
+	"paste": Key("p"),
+	"shift paste": Key("P"),
 
-	"replace":                            Key("r"),
-	"shift replace":                      Key("R"),
+	"replace": Key("r"),
+	"shift replace": Key("R"),
 
 	# Pete is shorthand for repeat
-	"Pete":                      Key("dot"),
+	"Pete": Key("dot"),
 
-	"mimic <text>":                     release + Mimic(extra="text"),
-    },
-    namespace={
-     "Key":   Key,
-     "Text":  Text,
-    }
+	"mimic <text>": release + Mimic(extra="text"),
+	},
+	namespace={
+		"Key": Key,
+		"Text": Text,
+	}
 )
 
 # This searches for a file with the same name as this file (gvim.py), but with
@@ -319,34 +320,34 @@ namespace = config.load()
 #  Each of these functions must have a name that starts with "format_".
 format_functions = {}
 if namespace:
-    for name, function in namespace.items():
-     if name.startswith("format_") and callable(function):
-        spoken_form = function.__doc__.strip()
+	for name, function in namespace.items():
+	 if name.startswith("format_") and callable(function):
+		spoken_form = function.__doc__.strip()
 
-        # We wrap generation of the Function action in a function so
-        #  that its *function* variable will be local.  Otherwise it
-        #  would change during the next iteration of the namespace loop.
-        def wrap_function(function):
-            def _function(dictation):
-                formatted_text = function(dictation)
-                Text(formatted_text).execute()
-            return Function(_function)
+		# We wrap generation of the Function action in a function so
+		#  that its *function* variable will be local.  Otherwise it
+		#  would change during the next iteration of the namespace loop.
+		def wrap_function(function):
+			def _function(dictation):
+				formatted_text = function(dictation)
+				Text(formatted_text).execute()
+			return Function(_function)
 
-        action = wrap_function(function)
-        format_functions[spoken_form] = action
+		action = wrap_function(function)
+		format_functions[spoken_form] = action
 
 
 # Here we define the text formatting rule.
 # The contents of this rule were built up from the "format_*"
 #  functions in this module's config file.
 if format_functions:
-    class FormatRule(MappingRule):
+	class FormatRule(MappingRule):
 
-        mapping  = format_functions
-        extras   = [Dictation("dictation")]
+		mapping  = format_functions
+		extras   = [Dictation("dictation")]
 
 else:
-    FormatRule = None
+	FormatRule = None
 
 
 #---------------------------------------------------------------------------
@@ -366,25 +367,25 @@ else:
 #  http://dragonfly.googlecode.com/svn/trunk/dragonfly/documentation/actionkey.html
 class KeystrokeRule(MappingRule):
 
-    exported = False
+	exported = False
 
-    mapping  = config.cmd.map
-    extras   = [
+	mapping  = config.cmd.map
+	extras   = [
 		letter,
 		letter_sequence,
-                IntegerRef("n", 1, 100),
-                Dictation("text"),
-                Dictation("text2"),
-               ]
-    defaults = {
-                "n": 1,
-               }
-    # Note: when processing a recognition, the *value* of 
-    #  this rule will be an action object from the right side 
-    #  of the mapping given above.  This is default behavior 
-    #  of the MappingRule class' value() method.  It also 
-    #  substitutes any "%(...)." within the action spec
-    #  with the appropriate spoken values.
+				IntegerRef("n", 1, 100),
+				Dictation("text"),
+				Dictation("text2"),
+			   ]
+	defaults = {
+				"n": 1,
+			   }
+	# Note: when processing a recognition, the *value* of 
+	#  this rule will be an action object from the right side 
+	#  of the mapping given above.  This is default behavior 
+	#  of the MappingRule class' value() method.  It also 
+	#  substitutes any "%(...)." within the action spec
+	#  with the appropriate spoken values.
 
 
 #---------------------------------------------------------------------------
@@ -396,7 +397,7 @@ class KeystrokeRule(MappingRule):
 alternatives = []
 alternatives.append(RuleRef(rule=KeystrokeRule()))
 if FormatRule:
-    alternatives.append(RuleRef(rule=FormatRule()))
+	alternatives.append(RuleRef(rule=FormatRule()))
 single_action = Alternative(alternatives)
 
 # Second we create a repetition of keystroke elements.
@@ -420,29 +421,32 @@ sequence = Repetition(single_action, min=1, max=16, name="sequence")
 #  actions and the number of times to repeat them.
 class RepeatRule(CompoundRule):
 
-    # Here we define this rule's spoken-form and special elements.
-    spec     = "<sequence> [[[and] repeat [that]] <n> times]"
-    extras   = [
-                sequence,                 # Sequence of actions defined above.
-                IntegerRef("n", 1, 100),  # Times to repeat the sequence.
-               ]
-    defaults = {
-                "n": 1,                   # Default repeat count.
-               }
+	# Here we define this rule's spoken-form and special elements.
+	spec	 = "<sequence> [[[and] repeat [that]] <n> times]"
+	extras   = [
+			# Sequence of actions defined above.
+			sequence,
+			# Times to repeat the sequence.
+			IntegerRef("n", 1, 100),
+		]
+	defaults = {
+			# Default repeat count.
+			"n": 1,
+		}
 
-    # This method gets called when this rule is recognized.
-    # Arguments:
-    #  - node -- root node of the recognition parse tree.
-    #  - extras -- dict of the "extras" special elements:
-    #     . extras["sequence"] gives the sequence of actions.
-    #     . extras["n"] gives the repeat count.
-    def _process_recognition(self, node, extras):
-        sequence = extras["sequence"]   # A sequence of actions.
-        count = extras["n"]             # An integer repeat count.
-        for i in range(count):
-            for action in sequence:
-                action.execute()
-        release.execute()
+	# This method gets called when this rule is recognized.
+	# Arguments:
+	#  - node -- root node of the recognition parse tree.
+	#  - extras -- dict of the "extras" special elements:
+	#	 . extras["sequence"] gives the sequence of actions.
+	#	 . extras["n"] gives the repeat count.
+	def _process_recognition(self, node, extras):
+		sequence = extras["sequence"]   # A sequence of actions.
+		count = extras["n"]			 # An integer repeat count.
+		for i in range(count):
+			for action in sequence:
+				action.execute()
+		release.execute()
 
 
 #---------------------------------------------------------------------------
@@ -520,49 +524,53 @@ gvim_navigation_rule = MappingRule(
 
 
 class ExModeEnabler(CompoundRule):
-    spec = "execute"                  # Spoken command to enable the ExMode grammar.
-    
-    def _process_recognition(self, node, extras):   # Callback when command is spoken.
-        exModeBootstrap.disable()
-        normalModeGrammar.disable()
-        ExModeGrammar.enable()
-	Key("colon").execute()
-        print "ExMode grammar enabled"
-        print "Available commands:"
-	print '  \n'.join(ExModeCommands.mapping.keys())
+	# Spoken command to enable the ExMode grammar.
+	spec = "execute"
+	
+	# Callback when command is spoken.
+	def _process_recognition(self, node, extras):
+		exModeBootstrap.disable()
+		normalModeGrammar.disable()
+		ExModeGrammar.enable()
+		Key("colon").execute()
+		print "ExMode grammar enabled"
+		print "Available commands:"
+		print '  \n'.join(ExModeCommands.mapping.keys())
 
 class ExModeOkayDisabler(CompoundRule):
-    # spoken command to accept ExMode command
-    spec = "(Okay|kay)" 
-    
-    def _process_recognition(self, node, extras):   # Callback when command is spoken.
-        ExModeGrammar.disable()
-        exModeBootstrap.enable()
-        normalModeGrammar.enable()
-	Key("enter").execute()
-        print "Ex command accepted"
+	# spoken command to accept ExMode command
+	spec = "(Okay|kay)" 
+	
+	# Callback when command is spoken.
+	def _process_recognition(self, node, extras):
+		ExModeGrammar.disable()
+		exModeBootstrap.enable()
+		normalModeGrammar.enable()
+		Key("enter").execute()
+		print "Ex command accepted"
 
 class ExModeCancelDisabler(CompoundRule):
-    # spoken command to cancel ExMode
-    spec = "cancel"
-    
-    def _process_recognition(self, node, extras):
-        ExModeGrammar.disable()
-        exModeBootstrap.enable()
-        normalModeGrammar.enable()
-	Key("escape").execute()
-        print "Ex command canceled"
+	# spoken command to cancel ExMode
+	spec = "cancel"
+	
+	def _process_recognition(self, node, extras):
+		ExModeGrammar.disable()
+		exModeBootstrap.enable()
+		normalModeGrammar.enable()
+		Key("escape").execute()
+		print "Ex command canceled"
 
 # This is a test rule to see if the ExMode grammar is enabled
 class ExModeTestRule(CompoundRule):
-    spec = "test Ex-Mode"                  # Spoken form of command.
-    
-    def _process_recognition(self, node, extras):   # Callback when command is spoken.
-        print "ExMode grammar tested"
+	# Spoken form of command.
+	spec = "test Ex-Mode"
+	
+	def _process_recognition(self, node, extras):
+		print "ExMode grammar tested"
 
 # handles ExMode control structures
 class ExModeCommands(MappingRule):
-    mapping  = {
+	mapping  = {
 		"write": Text("w "),
 		"edit file": Text("e "),
 		"tab edit": Text("tabe "),
@@ -572,67 +580,64 @@ class ExModeCommands(MappingRule):
 		"set no ignore case": Text("set noignorecase "),
 		"set file format UNIX": Text("set fileformat=unix "),
 		"set file format DOS": Text("set fileformat=dos "),
-               }    
+	}	
 
 
 #---------------------------------------------------------------------------
 
 class InsertModeEnabler(CompoundRule):
-    spec = "<command>"
-    extras = [Choice("command", {
-                              "insert": "i",
-                              "shift insert": "I",
+	spec = "<command>"
+	extras = [Choice("command", {
+		"insert": "i",
+		"shift insert": "I",
 
-                              "change": "c",
-                              "shift change": "C",
+		"change": "c",
+		"shift change": "C",
 
-                              "append": "a",
-                              "shift append": "A",
+		"append": "a",
+		"shift append": "A",
 
-                              "oh": "o",
-                              "shift oh": "O",
-                             }
-                    )
-             ]
-    def _process_recognition(self, node, extras):
-        InsertModeBootstrap.disable()
-        normalModeGrammar.disable()
-        InsertModeGrammar.enable()
-        key = Key(extras["command"])
-	key.execute()
-        print "InsertMode grammar enabled"
-        print "Available commands:"
-	print '  \n'.join(InsertModeCommands.mapping.keys())
+		"oh": "o",
+		"shift oh": "O",
+	})]
+
+	def _process_recognition(self, node, extras):
+		InsertModeBootstrap.disable()
+		normalModeGrammar.disable()
+		InsertModeGrammar.enable()
+		key = Key(extras["command"])
+		key.execute()
+		print "InsertMode grammar enabled"
+		print "Available commands:"
+		print '  \n'.join(InsertModeCommands.mapping.keys())
 
 
 class InsertModeDisabler(CompoundRule):
-    # spoken command to exit InsertMode
-    spec = "<command>"
-    extras = [Choice("command", {
-                              "kay": "okay",
-                              "cancel": "cancel",
-                             }
-                    )
-             ]
-    
-    def _process_recognition(self, node, extras):
-        InsertModeGrammar.disable()
-        InsertModeBootstrap.enable()
-        normalModeGrammar.enable()
-	Key("escape").execute()
-	if extras["command"] == "cancel":
-		Key("u").execute()
-		print "Insert command canceled"
-	else:
-		print "Insert command accepted"
+	# spoken command to exit InsertMode
+	spec = "<command>"
+	extras = [Choice("command", {
+		"kay": "okay",
+		"cancel": "cancel",
+	})]
+	
+	def _process_recognition(self, node, extras):
+		InsertModeGrammar.disable()
+		InsertModeBootstrap.enable()
+		normalModeGrammar.enable()
+		Key("escape").execute()
+		if extras["command"] == "cancel":
+			Key("u").execute()
+			print "Insert command canceled"
+		else:
+			print "Insert command accepted"
 
 
 # This is a test rule to see if the InsertMode grammar is enabled
 class InsertModeTestRule(CompoundRule):
-    spec = "test Insert Mode"                  # Spoken form of command.
-    
-    def _process_recognition(self, node, extras):   # Callback when command is spoken.
-        print "InsertMode grammar tested"
+	spec = "test Insert Mode"
+	
+	def _process_recognition(self, node, extras):
+		print "InsertMode grammar tested"
 
 # handles InsertMode control structures
 class InsertModeCommands(MappingRule):
@@ -641,7 +646,7 @@ class InsertModeCommands(MappingRule):
 		"(scratch|delete)": Key("c-w"),
 		"[<n>] slap": Key("enter:%(n)d"),
 		"[<n>] tab": Key("tab:%(n)d"),
-	}    
+	}	
 	extras = [
 		Dictation("text"),
 		IntegerRef("n", 1, 50),
@@ -656,7 +661,7 @@ class InsertModeCommands(MappingRule):
 gvim_context = AppContext(executable="gvim")
 
 # set up the grammar for vim's ex mode
-exModeBootstrap = Grammar("ExMode bootstrap", context=gvim_context)                
+exModeBootstrap = Grammar("ExMode bootstrap", context=gvim_context)				
 exModeBootstrap.add_rule(ExModeEnabler())
 exModeBootstrap.load()
 ExModeGrammar = Grammar("ExMode grammar", context=gvim_context)
@@ -695,14 +700,14 @@ normalModeGrammar.load()
 
 # Unload function which will be called at unload time.
 def unload():
-    global normalModeGrammar
-    if normalModeGrammar: normalModeGrammar.unload()
-    normalModeGrammar = None
+	global normalModeGrammar
+	if normalModeGrammar: normalModeGrammar.unload()
+	normalModeGrammar = None
 
-    global ExModeGrammar
-    if ExModeGrammar: ExModeGrammar.unload()
-    ExModeGrammar = None
+	global ExModeGrammar
+	if ExModeGrammar: ExModeGrammar.unload()
+	ExModeGrammar = None
 
-    global InsertModeGrammar
-    if InsertModeGrammar: InsertModeGrammar.unload()
-    InsertModeGrammar = None
+	global InsertModeGrammar
+	if InsertModeGrammar: InsertModeGrammar.unload()
+	InsertModeGrammar = None
