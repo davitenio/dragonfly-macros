@@ -304,7 +304,6 @@ config.cmd.map    = Item(
 	# Pete is shorthand for repeat
 	"Pete":                      Key("dot"),
 
-	"say <text>":                       release + Text("%(text)s"),
 	"mimic <text>":                     release + Mimic(extra="text"),
     },
     namespace={
