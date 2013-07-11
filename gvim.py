@@ -229,6 +229,8 @@ config.cmd.map	= Item(
 	"doc home": Key("c-home"),
 	"doc end": Key("c-end"),
 
+	"swap case": Key("tilde"),
+
 	"vizzi": Key("v"),
 	"vizzi line": Key("s-v"),
 	"vizzi block": Key("c-v"),
@@ -242,11 +244,6 @@ config.cmd.map	= Item(
 	"Center": Key("z,dot"),
 	"format": Key("g,q"),
 
-	"a parentheses": Key("a,rparen"),
-	"inner parentheses": Key("i,rparen"),
-
-	"a paragraph": Key("a,p"),
-	"inner paragraph": Key("i,p"),
 	"next paragraph": Key("rbrace"),
 	"previous paragraph": Key("lbrace"),
 
@@ -254,9 +251,12 @@ config.cmd.map	= Item(
 	"[<n>] backspace": Key("backspace:%(n)d"),
 
 
-	"cheese": Key("tilde"),
+	"join": Key("J"),
 
 	"(delete | D.)": Key("d"),
+	"[<n>] (delete | D.) (whiskey|word)": Text("%(n)ddw"),
+	"(delete | D.) a (whiskey | word)": Key("d,a,w"),
+	"(delete | D.) inner (whiskey | word)": Key("d,i,w"),
 	"(delete | D.) a paragraph": Key("d,a,p"),
 	"(delete | D.) inner paragraph": Key("d,i,p"),
 	"(delete | D.) a (paren|parenthesis|raip|laip)": Key("d,a,rparen"),
@@ -292,6 +292,9 @@ config.cmd.map	= Item(
 
 	"replace": Key("r"),
 	"shift replace": Key("R"),
+
+	"shift left": Key("langle,langle"),
+	"shift right": Key("rangle,rangle"),
 
 	# Pete is shorthand for repeat
 	"[<n>] Pete": Key("dot:%(n)d"),
@@ -571,7 +574,7 @@ class ExModeCommands(MappingRule):
 		"read": Text("r "),
 		"write": Text("w "),
 		"quit": Text("q "),
-		"write and quit": Text("wq\n"),
+		"write and quit": Text("wq "),
 		"edit": Text("e "),
 		"tab edit": Text("tabe "),
 		"set number": Text("set number "),
