@@ -245,9 +245,6 @@ config.cmd.map	= Item(
 	"a parentheses": Key("a,rparen"),
 	"inner parentheses": Key("i,rparen"),
 
-	"inner": Key("i"),
-	"a": Key("a"),
-
 	"a paragraph": Key("a,p"),
 	"inner paragraph": Key("i,p"),
 	"next paragraph": Key("rbrace"),
@@ -260,7 +257,13 @@ config.cmd.map	= Item(
 	"cheese": Key("tilde"),
 
 	"(delete | D.)": Key("d"),
+	"(delete | D.) a paragraph": Key("d,a,p"),
+	"(delete | D.) inner paragraph": Key("d,i,p"),
+	"(delete | D.) a (paren|parenthesis|raip|laip)": Key("d,a,rparen"),
+	"(delete | D.) inner (paren|parenthesis|raip|laip)": Key("d,i,rparen"),
+
 	"shift (delete | D.)": Key("s-d"),
+
 	"[<n>] undo": Key("u:%(n)d"),
 	"[<n>] redo": Key("c-r:%(n)d"),
 
@@ -278,6 +281,10 @@ config.cmd.map	= Item(
 	'shift until [<n>] <letter>': Text('%(n)dT') + Function(executeLetter),
 
 	"yank": Key("y"),
+	"yank a paragraph": Key("y,a,p"),
+	"yank inner paragraph": Key("y,i,p"),
+	"yank a (paren|parenthesis|raip|laip)": Key("y,a,rparen"),
+	"yank inner (paren|parenthesis|raip|laip)": Key("y,i,rparen"),
 	"shift yank": Key("Y"),
 
 	"paste": Key("p"),
@@ -486,12 +493,13 @@ gvim_general_rule = MappingRule(
 gvim_navigation_rule = MappingRule(
 	name = "gvim_navigation",
 	mapping = {
-		"go first (line)": Key("g,g"),
-		"go last (line)": Key("G"),
+		"go first line": Key("g,g"),
+		"go last line": Key("G"),
 		"go old": Key("c-o"),
-		"go top": Key("s-h"),
-		"go middle": Key("s-m"),
-		"go low": Key("s-l"),
+
+		"cursor top": Key("s-h"),
+		"cursor middle": Key("s-m"),
+		"cursor (low | bottom)": Key("s-l"),
 
 		# line navigation
 		"go <line>": Key("colon") + Text("%(line)s\n"),
@@ -562,6 +570,7 @@ class ExModeCommands(MappingRule):
 	mapping  = {
 		"read": Text("r "),
 		"write": Text("w "),
+		"quit": Text("q "),
 		"write and quit": Text("wq\n"),
 		"edit": Text("e "),
 		"tab edit": Text("tabe "),
@@ -587,13 +596,16 @@ class InsertModeEnabler(CompoundRule):
 		"shift insert": "I",
 
 		"change": "c",
-		"change whiskey": "cw",
-		"change (echo|end)": "ce",
-		"change a paragraph": "cap",
+		"change whiskey": "c,w",
+		"change (echo|end)": "c,e",
+		"change a paragraph": "c,a,p",
+		"change inner paragraph": "c,i,p",
+		"change a (paren|parenthesis|raip|laip)": "c,a,rparen",
+		"change inner (paren|parenthesis|raip|laip)": "c,i,rparen",
 		"shift change": "C",
 
-		"append": "a",
-		"shift append": "A",
+		"(after | append)": "a",
+		"shift (append)": "A",
 
 		"oh": "o",
 		"shift oh": "O",
@@ -603,8 +615,8 @@ class InsertModeEnabler(CompoundRule):
 		InsertModeBootstrap.disable()
 		normalModeGrammar.disable()
 		InsertModeGrammar.enable()
-		for char in extras["command"]:
-			key = Key(char)
+		for string in extras["command"].split(','):
+			key = Key(string)
 			key.execute()
 		print "Available commands:"
 		print '  \n'.join(InsertModeCommands.mapping.keys())
@@ -648,7 +660,7 @@ class InsertModeCommands(MappingRule):
 		"[<n>] slap": Key("enter:%(n)d"),
 		"[<n>] tab": Key("tab:%(n)d"),
 		"[<n>] backspace": Key("backspace:%(n)d"),
-		"undo": Key("c-u"),
+		"(scratch|delete) line": Key("c-u"),
 		"[<n>] left": Key("left:%(n)d"),
 		"[<n>] right": Key("right:%(n)d"),
 	}	
