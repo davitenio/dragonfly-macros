@@ -251,7 +251,7 @@ config.cmd.map	= Item(
 	"[<n>] backspace": Key("backspace:%(n)d"),
 
 
-	"join": Key("J"),
+	"[<n>] join": Key("J:%(n)d"),
 
 	"(delete | D.)": Key("d"),
 	"[<n>] (delete | D.) (whiskey|word)": Text("%(n)ddw"),
@@ -261,6 +261,8 @@ config.cmd.map	= Item(
 	"(delete | D.) inner paragraph": Key("d,i,p"),
 	"(delete | D.) a (paren|parenthesis|raip|laip)": Key("d,a,rparen"),
 	"(delete | D.) inner (paren|parenthesis|raip|laip)": Key("d,i,rparen"),
+	"(delete | D.) a (bracket|rack|lack)": Key("d,a,rbracket"),
+	"(delete | D.) inner (bracket|rack|lack)": Key("d,i,rbracket"),
 
 	"shift (delete | D.)": Key("s-d"),
 
@@ -583,6 +585,8 @@ class ExModeCommands(MappingRule):
 		"set no ignore case": Text("set noignorecase "),
 		"set file format UNIX": Text("set fileformat=unix "),
 		"set file format DOS": Text("set fileformat=dos "),
+		"set file type Python": Text("set filetype=python"),
+		"set file type tex": Text("set filetype=tex"),
 		"help": Text("help"),
 		"substitute": Text("s/"),
 		"up": Key("up"),
@@ -659,7 +663,7 @@ class InsertModeTestRule(CompoundRule):
 class InsertModeCommands(MappingRule):
 	mapping  = {
 		"<text>": Text("%(text)s"),
-		"(scratch|delete)": Key("c-w"),
+		"[<n>] (scratch|delete)": Key("c-w:%(n)d"),
 		"[<n>] slap": Key("enter:%(n)d"),
 		"[<n>] tab": Key("tab:%(n)d"),
 		"[<n>] backspace": Key("backspace:%(n)d"),

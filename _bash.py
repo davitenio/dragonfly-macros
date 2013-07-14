@@ -44,7 +44,7 @@ bash_rule = MappingRule(
 		"CD dot dot": Text("cd ..\n"),
 		"CD double dot": Text("cd ..\n"),
 		"CD triple dot": Text("cd ../..\n"),
-		"CD ": Text("cd "),
+		"CD ": Text("cd ") + Key("tab:3"),
 		"CD <text>": Text("cd %(text)s"),
 
 		"copy": Text("cp "),
