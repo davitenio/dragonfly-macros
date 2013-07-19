@@ -574,11 +574,12 @@ class ExModeTestRule(CompoundRule):
 class ExModeCommands(MappingRule):
 	mapping  = {
 		"read": Text("r "),
-		"write": Text("w "),
+		"write file": Text("w "),
 		"quit": Text("q "),
 		"write and quit": Text("wq "),
 		"edit": Text("e "),
 		"tab edit": Text("tabe "),
+
 		"set number": Text("set number "),
 		"set relative number": Text("set relativenumber "),
 		"set ignore case": Text("set ignorecase "),
@@ -587,11 +588,21 @@ class ExModeCommands(MappingRule):
 		"set file format DOS": Text("set fileformat=dos "),
 		"set file type Python": Text("set filetype=python"),
 		"set file type tex": Text("set filetype=tex"),
+
 		"help": Text("help"),
 		"substitute": Text("s/"),
 		"up": Key("up"),
 		"down": Key("down"),
+		"[<n>] left": Key("left:%(n)d"),
+		"[<n>] right": Key("right:%(n)d"),
 	}	
+	extras = [
+		Dictation("text"),
+		IntegerRef("n", 1, 50),
+	]
+	defaults = {
+		"n": 1,
+	}
 
 
 #---------------------------------------------------------------------------
