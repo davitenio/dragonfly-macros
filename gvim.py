@@ -23,7 +23,7 @@ be represented by the following simplified language model:
 
  - *CommandRule* -- top-level rule which the user can say
     - *repetition* -- sequence of actions (name = "sequence")
-       - *KeystrokeRule* -- rule that maps a single 
+       - *NormalModeKeystrokeRule* -- rule that maps a single 
          spoken-form to an action
     - *optional* -- optional specification of repeat count
        - *integer* -- repeat count (name = "n")
@@ -184,105 +184,7 @@ def executeLetterSequence(letter_sequence):
 # This defines a configuration object with the name "gvim".
 config            = Config("gvim")
 config.cmd        = Section("Language section")
-config.cmd.map    = Item(
-    {
-    # Spoken-form    ->    ->    ->     Action object
 
-    "[<n>] up": Key("k:%(n)d"),
-    "[<n>] down": Key("j:%(n)d"),
-    "[<n>] left": Key("h:%(n)d"),
-    "[<n>] right": Key("l:%(n)d"),
-    "go up [<n>]": Key("c-b:%(n)d"),
-    "go down [<n>]": Key("c-f:%(n)d"),
-    "up <n> (page | pages)": Key("pgup:%(n)d"),
-    "down <n> (page | pages)": Key("pgdown:%(n)d"),
-    "left <n> (word | words)": Key("c-left:%(n)d"),
-    "right <n> (word | words)": Key("c-right:%(n)d"),
-    "hat": Key("caret"),
-    "dollar": Key("dollar"),
-    "match": Key("percent"),
-    "doc home": Key("c-home"),
-    "doc end": Key("c-end"),
-
-    "swap case": Key("tilde"),
-
-    "vizzi": Key("v"),
-    "vizzi line": Key("s-v"),
-    "vizzi block": Key("c-v"),
-
-    "next": Key("n"),
-    "previous": Key("N"),
-    "[<n>] back": Key("b:%(n)d"),
-    "[<n>] whiskey": Key("w:%(n)d"),
-    "[<n>] end": Key("e:%(n)d"),
-
-    "Center": Key("z,dot"),
-    "format": Key("g,q"),
-
-    "next paragraph": Key("rbrace"),
-    "previous paragraph": Key("lbrace"),
-
-    "[<n>] X.": Key("x:%(n)d"),
-    "[<n>] backspace": Key("backspace:%(n)d"),
-
-
-    "[<n>] join": Key("J:%(n)d"),
-
-    "(delete | D.)": Key("d"),
-    "[<n>] (delete | D.) (whiskey|word)": Text("%(n)ddw"),
-    "(delete | D.) a (whiskey | word)": Key("d,a,w"),
-    "(delete | D.) inner (whiskey | word)": Key("d,i,w"),
-    "(delete | D.) a paragraph": Key("d,a,p"),
-    "(delete | D.) inner paragraph": Key("d,i,p"),
-    "(delete | D.) a (paren|parenthesis|raip|laip)": Key("d,a,rparen"),
-    "(delete | D.) inner (paren|parenthesis|raip|laip)": Key("d,i,rparen"),
-    "(delete | D.) a (bracket|rack|lack)": Key("d,a,rbracket"),
-    "(delete | D.) inner (bracket|rack|lack)": Key("d,i,rbracket"),
-
-    "shift (delete | D.)": Key("s-d"),
-
-    "[<n>] undo": Key("u:%(n)d"),
-    "[<n>] redo": Key("c-r:%(n)d"),
-
-    '[<n>] find <letter>': Text('%(n)df') + Function(executeLetter),
-    '[<n>] shift find <letter>': Text('%(n)dF') + Function(executeLetter),
-    'find [<n>] <letter>': Text('%(n)df') + Function(executeLetter),
-    'shift find [<n>] <letter>': Text('%(n)dF') + Function(executeLetter),
-
-    '[<n>] again': Text('%(n)d;'),
-    '[<n>] shift again': Text('%(n)d,'),
-
-    '[<n>] until <letter>': Text('%(n)dt') + Function(executeLetter),
-    '[<n>] shift until <letter>': Text('%(n)dT') + Function(executeLetter),
-    'until [<n>] <letter>': Text('%(n)dt') + Function(executeLetter),
-    'shift until [<n>] <letter>': Text('%(n)dT') + Function(executeLetter),
-
-    "yank": Key("y"),
-    "yank a paragraph": Key("y,a,p"),
-    "yank inner paragraph": Key("y,i,p"),
-    "yank a (paren|parenthesis|raip|laip)": Key("y,a,rparen"),
-    "yank inner (paren|parenthesis|raip|laip)": Key("y,i,rparen"),
-    "shift yank": Key("Y"),
-
-    "paste": Key("p"),
-    "shift paste": Key("P"),
-
-    "replace": Key("r"),
-    "shift replace": Key("R"),
-
-    "shift left": Key("langle,langle"),
-    "shift right": Key("rangle,rangle"),
-
-    # Pete is shorthand for repeat
-    "[<n>] Pete": Key("dot:%(n)d"),
-
-    "mimic <text>": release + Mimic(extra="text"),
-    },
-    namespace={
-        "Key": Key,
-        "Text": Text,
-    }
-)
 
 # This searches for a file with the same name as this file (gvim.py), but with
 # the extension ".py" replaced by ".txt". In other words, it loads the
@@ -341,21 +243,111 @@ else:
 #  For example "up 4" will give the value Key("up:4").
 # More information about Key() actions can be found here:
 #  http://dragonfly.googlecode.com/svn/trunk/dragonfly/documentation/actionkey.html
-class KeystrokeRule(MappingRule):
+class NormalModeKeystrokeRule(MappingRule):
 
     exported = False
 
-    mapping  = config.cmd.map
+    mapping = {
+        "[<n>] up": Key("k:%(n)d"),
+        "[<n>] down": Key("j:%(n)d"),
+        "[<n>] left": Key("h:%(n)d"),
+        "[<n>] right": Key("l:%(n)d"),
+        "go up [<n>]": Key("c-b:%(n)d"),
+        "go down [<n>]": Key("c-f:%(n)d"),
+        "up <n> (page | pages)": Key("pgup:%(n)d"),
+        "down <n> (page | pages)": Key("pgdown:%(n)d"),
+        "left <n> (word | words)": Key("c-left:%(n)d"),
+        "right <n> (word | words)": Key("c-right:%(n)d"),
+        "hat": Key("caret"),
+        "dollar": Key("dollar"),
+        "match": Key("percent"),
+        "doc home": Key("c-home"),
+        "doc end": Key("c-end"),
+
+        "swap case": Key("tilde"),
+
+        "vizzi": Key("v"),
+        "vizzi line": Key("s-v"),
+        "vizzi block": Key("c-v"),
+
+        "next": Key("n"),
+        "previous": Key("N"),
+        "[<n>] back": Key("b:%(n)d"),
+        "[<n>] whiskey": Key("w:%(n)d"),
+        "[<n>] end": Key("e:%(n)d"),
+
+        "Center": Key("z,dot"),
+        "format": Key("g,q"),
+
+        "next paragraph": Key("rbrace"),
+        "previous paragraph": Key("lbrace"),
+
+        "[<n>] X.": Key("x:%(n)d"),
+        "[<n>] backspace": Key("backspace:%(n)d"),
+
+
+        "[<n>] join": Key("J:%(n)d"),
+
+        "(delete | D.)": Key("d"),
+        "[<n>] (delete | D.) (whiskey|word)": Text("%(n)ddw"),
+        "(delete | D.) a (whiskey | word)": Key("d,a,w"),
+        "(delete | D.) inner (whiskey | word)": Key("d,i,w"),
+        "(delete | D.) a paragraph": Key("d,a,p"),
+        "(delete | D.) inner paragraph": Key("d,i,p"),
+        "(delete | D.) a (paren|parenthesis|raip|laip)": Key("d,a,rparen"),
+        "(delete | D.) inner (paren|parenthesis|raip|laip)": Key("d,i,rparen"),
+        "(delete | D.) a (bracket|rack|lack)": Key("d,a,rbracket"),
+        "(delete | D.) inner (bracket|rack|lack)": Key("d,i,rbracket"),
+
+        "shift (delete | D.)": Key("s-d"),
+
+        "[<n>] undo": Key("u:%(n)d"),
+        "[<n>] redo": Key("c-r:%(n)d"),
+
+        '[<n>] find <letter>': Text('%(n)df') + Function(executeLetter),
+        '[<n>] shift find <letter>': Text('%(n)dF') + Function(executeLetter),
+        'find [<n>] <letter>': Text('%(n)df') + Function(executeLetter),
+        'shift find [<n>] <letter>': Text('%(n)dF') + Function(executeLetter),
+
+        '[<n>] again': Text('%(n)d;'),
+        '[<n>] shift again': Text('%(n)d,'),
+
+        '[<n>] until <letter>': Text('%(n)dt') + Function(executeLetter),
+        '[<n>] shift until <letter>': Text('%(n)dT') + Function(executeLetter),
+        'until [<n>] <letter>': Text('%(n)dt') + Function(executeLetter),
+        'shift until [<n>] <letter>': Text('%(n)dT') + Function(executeLetter),
+
+        "yank": Key("y"),
+        "yank a paragraph": Key("y,a,p"),
+        "yank inner paragraph": Key("y,i,p"),
+        "yank a (paren|parenthesis|raip|laip)": Key("y,a,rparen"),
+        "yank inner (paren|parenthesis|raip|laip)": Key("y,i,rparen"),
+        "shift yank": Key("Y"),
+
+        "paste": Key("p"),
+        "shift paste": Key("P"),
+
+        "replace": Key("r"),
+        "shift replace": Key("R"),
+
+        "shift left": Key("langle,langle"),
+        "shift right": Key("rangle,rangle"),
+
+        # Pete is shorthand for repeat
+        "[<n>] Pete": Key("dot:%(n)d"),
+
+        "mimic <text>": release + Mimic(extra="text"),
+    }
     extras   = [
         letter,
         letter_sequence,
         IntegerRef("n", 1, 100),
         Dictation("text"),
         Dictation("text2"),
-        ]
+    ]
     defaults = {
-                "n": 1,
-               }
+        "n": 1,
+    }
     # Note: when processing a recognition, the *value* of 
     #  this rule will be an action object from the right side 
     #  of the mapping given above.  This is default behavior 
@@ -371,7 +363,7 @@ class KeystrokeRule(MappingRule):
 #  Note: when processing a recognition, the *value* of this element
 #  will be the value of the referenced rule: an action.
 alternatives = []
-alternatives.append(RuleRef(rule=KeystrokeRule()))
+alternatives.append(RuleRef(rule=NormalModeKeystrokeRule()))
 if FormatRule:
     alternatives.append(RuleRef(rule=FormatRule()))
 single_action = Alternative(alternatives)
@@ -395,7 +387,7 @@ sequence = Repetition(single_action, min=1, max=16, name="sequence")
 #  method will be called.  It receives information about the 
 #  recognition in the "extras" argument: the sequence of 
 #  actions and the number of times to repeat them.
-class RepeatRule(CompoundRule):
+class NormalModeRepeatRule(CompoundRule):
 
     # Here we define this rule's spoken-form and special elements.
     spec     = "<sequence> [[[and] repeat [that]] <n> times]"
@@ -417,8 +409,10 @@ class RepeatRule(CompoundRule):
     #     . extras["sequence"] gives the sequence of actions.
     #     . extras["n"] gives the repeat count.
     def _process_recognition(self, node, extras):
-        sequence = extras["sequence"]   # A sequence of actions.
-        count = extras["n"]             # An integer repeat count.
+        # A sequence of actions.
+        sequence = extras["sequence"]   
+        # An integer repeat count.
+        count = extras["n"]             
         for i in range(count):
             for action in sequence:
                 action.execute()
@@ -698,7 +692,7 @@ InsertModeGrammar.disable()
 
 # set up the grammar for vim's normal mode and start normal mode
 normalModeGrammar = Grammar("gvim", context=gvim_context)
-normalModeGrammar.add_rule(RepeatRule())
+normalModeGrammar.add_rule(NormalModeRepeatRule())
 normalModeGrammar.add_rule(gvim_window_rule)
 normalModeGrammar.add_rule(gvim_tabulator_rule)
 normalModeGrammar.add_rule(gvim_general_rule)
