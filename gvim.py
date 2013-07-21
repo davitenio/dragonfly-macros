@@ -8,35 +8,10 @@
 # https://github.com/danielgm/JarvisGrammars/blob/master/vim.py
 
 """
-Command-module for cursor movement and **editing**
+Command-module for the vim editor
 ============================================================================
 
-This module allows the user to control the cursor and 
-efficiently perform multiple text editing actions within a 
-single phrase.
-
-
-Example commands
-----------------------------------------------------------------------------
-
-*Note the "/" characters in the examples below are simply 
-to help the reader see the different parts of each voice 
-command.  They are not present in the actual command and 
-should not be spoken.*
-
-Example: **"up 4 / down 1 page / home / space 2"**
-   This command will move the cursor up 4 lines, down 1 page,
-   move to the beginning of the line, and then insert 2 spaces.
-
-Example: **"left 7 words / backspace 3 / insert hello Cap world"**
-   This command will move the cursor left 7 words, then delete
-   the 3 characters before the cursor, and finally insert
-   the text "hello World".
-
-Example: **"home / space 4 / down / 43 times"**
-   This command will insert 4 spaces at the beginning of 
-   of this and the next 42 lines.  The final "43 times" 
-   repeats everything in front of it that many times.
+This module allows the user to control the vim text editor.
 
 
 Discussion of this module
@@ -374,10 +349,10 @@ class KeystrokeRule(MappingRule):
     extras   = [
         letter,
         letter_sequence,
-                IntegerRef("n", 1, 100),
-                Dictation("text"),
-                Dictation("text2"),
-               ]
+        IntegerRef("n", 1, 100),
+        Dictation("text"),
+        Dictation("text2"),
+        ]
     defaults = {
                 "n": 1,
                }
