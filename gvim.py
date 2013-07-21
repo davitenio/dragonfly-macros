@@ -532,14 +532,6 @@ class ExModeDisabler(CompoundRule):
             Key("enter").execute()
         print "\n(NORMAL)"
 
-# This is a test rule to see if the ExMode grammar is enabled
-class ExModeTestRule(CompoundRule):
-    # Spoken form of command.
-    spec = "test Ex-Mode"
-
-    def _process_recognition(self, node, extras):
-        print "ExMode grammar tested"
-
 # handles ExMode control structures
 class ExModeCommands(MappingRule):
     mapping  = {
@@ -633,13 +625,6 @@ class InsertModeDisabler(CompoundRule):
         print "\n(NORMAL)"
 
 
-# This is a test rule to see if the InsertMode grammar is enabled
-class InsertModeTestRule(CompoundRule):
-    spec = "test Insert Mode"
-
-    def _process_recognition(self, node, extras):
-        print "InsertMode grammar tested"
-
 # handles InsertMode control structures
 class InsertModeCommands(MappingRule):
     mapping  = {
@@ -670,7 +655,6 @@ exModeBootstrap = Grammar("ExMode bootstrap", context=gvim_context)
 exModeBootstrap.add_rule(ExModeEnabler())
 exModeBootstrap.load()
 ExModeGrammar = Grammar("ExMode grammar", context=gvim_context)
-ExModeGrammar.add_rule(ExModeTestRule())
 ExModeGrammar.add_rule(ExModeCommands())
 ExModeGrammar.add_rule(ExModeDisabler())
 ExModeGrammar.load()
@@ -683,7 +667,6 @@ InsertModeBootstrap = Grammar("InsertMode bootstrap", context=gvim_context)
 InsertModeBootstrap.add_rule(InsertModeEnabler())
 InsertModeBootstrap.load()
 InsertModeGrammar = Grammar("InsertMode grammar", context=gvim_context)
-InsertModeGrammar.add_rule(InsertModeTestRule())
 InsertModeGrammar.add_rule(InsertModeCommands())
 InsertModeGrammar.add_rule(InsertModeDisabler())
 InsertModeGrammar.load()
