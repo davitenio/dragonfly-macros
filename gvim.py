@@ -362,11 +362,11 @@ class NormalModeKeystrokeRule(MappingRule):
 # First we create an element that references the keystroke rule.
 #  Note: when processing a recognition, the *value* of this element
 #  will be the value of the referenced rule: an action.
-alternatives = []
-alternatives.append(RuleRef(rule=NormalModeKeystrokeRule()))
+normal_mode_alternatives = []
+normal_mode_alternatives.append(RuleRef(rule=NormalModeKeystrokeRule()))
 if FormatRule:
-    alternatives.append(RuleRef(rule=FormatRule()))
-single_action = Alternative(alternatives)
+    normal_mode_alternatives.append(RuleRef(rule=FormatRule()))
+normal_mode_single_action = Alternative(normal_mode_alternatives)
 
 # Second we create a repetition of keystroke elements.
 #  This element will match anywhere between 1 and 16 repetitions
@@ -376,7 +376,8 @@ single_action = Alternative(alternatives)
 # Note: when processing a recognition, the *value* of this element
 #  will be a sequence of the contained elements: a sequence of
 #  actions.
-sequence = Repetition(single_action, min=1, max=16, name="sequence")
+normal_mode_sequence = Repetition(normal_mode_single_action,
+    min=1, max=16, name="normal_mode_sequence")
 
 
 #---------------------------------------------------------------------------
@@ -390,10 +391,10 @@ sequence = Repetition(single_action, min=1, max=16, name="sequence")
 class NormalModeRepeatRule(CompoundRule):
 
     # Here we define this rule's spoken-form and special elements.
-    spec     = "<sequence> [[[and] repeat [that]] <n> times]"
+    spec     = "<normal_mode_sequence> [[[and] repeat [that]] <n> times]"
     extras   = [
             # Sequence of actions defined above.
-            sequence,
+            normal_mode_sequence,
             # Times to repeat the sequence.
             IntegerRef("n", 1, 100),
         ]
@@ -410,11 +411,11 @@ class NormalModeRepeatRule(CompoundRule):
     #     . extras["n"] gives the repeat count.
     def _process_recognition(self, node, extras):
         # A sequence of actions.
-        sequence = extras["sequence"]
+        normal_mode_sequence = extras["normal_mode_sequence"]
         # An integer repeat count.
         count = extras["n"]
         for i in range(count):
-            for action in sequence:
+            for action in normal_mode_sequence:
                 action.execute()
         release.execute()
 
