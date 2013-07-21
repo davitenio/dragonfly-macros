@@ -17,23 +17,23 @@ This module allows the user to control the vim text editor.
 Discussion of this module
 ----------------------------------------------------------------------------
 
-This command-module creates a powerful voice command for 
-editing and cursor movement.  This command's structure can 
+This command-module creates a powerful voice command for
+editing and cursor movement.  This command's structure can
 be represented by the following simplified language model:
 
  - *CommandRule* -- top-level rule which the user can say
     - *repetition* -- sequence of actions (name = "sequence")
-       - *NormalModeKeystrokeRule* -- rule that maps a single 
+       - *NormalModeKeystrokeRule* -- rule that maps a single
          spoken-form to an action
     - *optional* -- optional specification of repeat count
        - *integer* -- repeat count (name = "n")
        - *literal* -- "times"
 
-The top-level command rule has a callback method which is 
-called when this voice command is recognized.  The logic 
+The top-level command rule has a callback method which is
+called when this voice command is recognized.  The logic
 within this callback is very simple:
 
-1. Retrieve the sequence of actions from the element with 
+1. Retrieve the sequence of actions from the element with
    the name "sequence".
 2. Retrieve the repeat count from the element with the name
    "n".
@@ -231,12 +231,12 @@ else:
 #---------------------------------------------------------------------------
 # Here we define the keystroke rule.
 
-# This rule maps spoken-forms to actions.  Some of these 
-#  include special elements like the number with name "n" 
-#  or the dictation with name "text".  This rule is not 
+# This rule maps spoken-forms to actions.  Some of these
+#  include special elements like the number with name "n"
+#  or the dictation with name "text".  This rule is not
 #  exported, but is referenced by other elements later on.
-#  It is derived from MappingRule, so that its "value" when 
-#  processing a recognition will be the right side of the 
+#  It is derived from MappingRule, so that its "value" when
+#  processing a recognition will be the right side of the
 #  mapping: an action.
 # Note that this rule does not execute these actions, it
 #  simply returns them when it's value() method is called.
@@ -348,10 +348,10 @@ class NormalModeKeystrokeRule(MappingRule):
     defaults = {
         "n": 1,
     }
-    # Note: when processing a recognition, the *value* of 
-    #  this rule will be an action object from the right side 
-    #  of the mapping given above.  This is default behavior 
-    #  of the MappingRule class' value() method.  It also 
+    # Note: when processing a recognition, the *value* of
+    #  this rule will be an action object from the right side
+    #  of the mapping given above.  This is default behavior
+    #  of the MappingRule class' value() method.  It also
     #  substitutes any "%(...)." within the action spec
     #  with the appropriate spoken values.
 
@@ -382,10 +382,10 @@ sequence = Repetition(single_action, min=1, max=16, name="sequence")
 #---------------------------------------------------------------------------
 # Here we define the top-level rule which the user can say.
 
-# This is the rule that actually handles recognitions. 
-#  When a recognition occurs, it's _process_recognition() 
-#  method will be called.  It receives information about the 
-#  recognition in the "extras" argument: the sequence of 
+# This is the rule that actually handles recognitions.
+#  When a recognition occurs, it's _process_recognition()
+#  method will be called.  It receives information about the
+#  recognition in the "extras" argument: the sequence of
 #  actions and the number of times to repeat them.
 class NormalModeRepeatRule(CompoundRule):
 
@@ -410,9 +410,9 @@ class NormalModeRepeatRule(CompoundRule):
     #     . extras["n"] gives the repeat count.
     def _process_recognition(self, node, extras):
         # A sequence of actions.
-        sequence = extras["sequence"]   
+        sequence = extras["sequence"]
         # An integer repeat count.
-        count = extras["n"]             
+        count = extras["n"]
         for i in range(count):
             for action in sequence:
                 action.execute()
@@ -424,7 +424,7 @@ class NormalModeRepeatRule(CompoundRule):
 gvim_window_rule = MappingRule(
     name = "gvim_window",
     mapping = {
-        # window navigation commands 
+        # window navigation commands
         "window left": Key("c-w,h"),
         "window right": Key("c-w,l"),
         "window up": Key("c-w,k"),
@@ -443,7 +443,7 @@ gvim_window_rule = MappingRule(
 gvim_tabulator_rule = MappingRule(
     name = "gvim_tabulators",
     mapping = {
-        # tabulator navigation commands 
+        # tabulator navigation commands
         "tabby next": Key("g,t"),
         "tabby previous": Key("g,T"),
         },
@@ -497,7 +497,7 @@ gvim_navigation_rule = MappingRule(
 class ExModeEnabler(CompoundRule):
     # Spoken command to enable the ExMode grammar.
     spec = "execute"
-    
+
     # Callback when command is spoken.
     def _process_recognition(self, node, extras):
         exModeBootstrap.disable()
@@ -518,7 +518,7 @@ class ExModeDisabler(CompoundRule):
         "kay": "okay",
         "cancel": "cancel",
     })]
-    
+
     def _process_recognition(self, node, extras):
         ExModeGrammar.disable()
         exModeBootstrap.enable()
@@ -535,7 +535,7 @@ class ExModeDisabler(CompoundRule):
 class ExModeTestRule(CompoundRule):
     # Spoken form of command.
     spec = "test Ex-Mode"
-    
+
     def _process_recognition(self, node, extras):
         print "ExMode grammar tested"
 
@@ -564,7 +564,7 @@ class ExModeCommands(MappingRule):
         "down": Key("down"),
         "[<n>] left": Key("left:%(n)d"),
         "[<n>] right": Key("right:%(n)d"),
-    }    
+    }
     extras = [
         Dictation("text"),
         IntegerRef("n", 1, 50),
@@ -618,7 +618,7 @@ class InsertModeDisabler(CompoundRule):
         "kay": "okay",
         "cancel": "cancel",
     })]
-    
+
     def _process_recognition(self, node, extras):
         InsertModeGrammar.disable()
         InsertModeBootstrap.enable()
@@ -635,7 +635,7 @@ class InsertModeDisabler(CompoundRule):
 # This is a test rule to see if the InsertMode grammar is enabled
 class InsertModeTestRule(CompoundRule):
     spec = "test Insert Mode"
-    
+
     def _process_recognition(self, node, extras):
         print "InsertMode grammar tested"
 
@@ -650,7 +650,7 @@ class InsertModeCommands(MappingRule):
         "(scratch|delete) line": Key("c-u"),
         "[<n>] left": Key("left:%(n)d"),
         "[<n>] right": Key("right:%(n)d"),
-    }    
+    }
     extras = [
         Dictation("text"),
         IntegerRef("n", 1, 50),
@@ -665,7 +665,7 @@ class InsertModeCommands(MappingRule):
 gvim_context = AppContext(executable="gvim")
 
 # set up the grammar for vim's ex mode
-exModeBootstrap = Grammar("ExMode bootstrap", context=gvim_context)                
+exModeBootstrap = Grammar("ExMode bootstrap", context=gvim_context)
 exModeBootstrap.add_rule(ExModeEnabler())
 exModeBootstrap.load()
 ExModeGrammar = Grammar("ExMode grammar", context=gvim_context)
