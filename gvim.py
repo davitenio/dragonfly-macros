@@ -262,9 +262,9 @@ class NormalModeKeystrokeRule(MappingRule):
 
         "swap case": Key("tilde"),
 
-        "vizzi": Key("v"),
-        "vizzi line": Key("s-v"),
-        "vizzi block": Key("c-v"),
+        "visual": Key("v"),
+        "visual line": Key("s-v"),
+        "visual block": Key("c-v"),
 
         "next": Key("n"),
         "previous": Key("N"),
@@ -546,6 +546,8 @@ class ExModeCommands(MappingRule):
         "set file format DOS": Text("set fileformat=dos "),
         "set file type Python": Text("set filetype=python"),
         "set file type tex": Text("set filetype=tex"),
+
+        "P. W. D.": Text("pwd "),
 
         "help": Text("help"),
         "substitute": Text("s/"),
