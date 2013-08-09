@@ -294,6 +294,8 @@ class NormalModeKeystrokeRule(MappingRule):
         "(delete | D.) inner (paren|parenthesis|raip|laip)": Key("d,i,rparen"),
         "(delete | D.) a (bracket|rack|lack)": Key("d,a,rbracket"),
         "(delete | D.) inner (bracket|rack|lack)": Key("d,i,rbracket"),
+        "(delete | D.) a (bracket|race|lace)": Key("d,a,rbrace"),
+        "(delete | D.) inner (bracket|race|lace)": Key("d,i,rbrace"),
 
         "shift (delete | D.)": Key("s-d"),
 
@@ -441,8 +443,8 @@ gvim_tabulator_rule = MappingRule(
     name = "gvim_tabulators",
     mapping = {
         # tabulator navigation commands
-        "tabby next": Key("g,t"),
-        "tabby previous": Key("g,T"),
+        "tabulator next": Key("g,t"),
+        "tabulator previous": Key("g,T"),
         },
     extras = [
         ]
