@@ -96,8 +96,8 @@ bash_rule = MappingRule(
 		"dollar": Key("c-e"),
 		"hat": Key("c-a"),
 
-		"delete whiskey": Key("c-w"),
-		"[<n>] delete whiskey": Key("c-w:%(n)d"),
+		"scratch": Key("c-w"),
+		"[<n>] scratch": Key("c-w:%(n)d"),
 		"paste": Key("c-y"),
 
 		"make": Text("make\n"),
