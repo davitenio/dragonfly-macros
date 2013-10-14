@@ -297,6 +297,9 @@ class NormalModeKeystrokeRule(MappingRule):
         "(delete | D.) a (bracket|race|lace)": Key("d,a,rbrace"),
         "(delete | D.) inner (bracket|race|lace)": Key("d,i,rbrace"),
 
+        "[<n>] (increment|increase)": Key("c-a:%(n)d"),
+        "[<n>] (decrement|decrease)": Key("c-x:%(n)d"),
+
         "shift (delete | D.)": Key("s-d"),
 
         "[<n>] undo": Key("u:%(n)d"),
