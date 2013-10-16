@@ -106,6 +106,8 @@ bash_rule = MappingRule(
 		"evince": Text("evince "),
 		"evince <text>": Text("evince %(text)s"),
 
+                "Python": Text("python "),
+
 		"aptitude search": Text("aptitude search "),
 		"pseudo-aptitude install": Text("sudo aptitude install "),
 		"pseudo-aptitude update": Text("sudo aptitude update "),

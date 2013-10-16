@@ -260,6 +260,8 @@ class NormalModeKeystrokeRule(MappingRule):
         "doc home": Key("c-home"),
         "doc end": Key("c-end"),
 
+        "lower case": Key("g,u"),
+        "upper case": Key("g,U"),
         "swap case": Key("tilde"),
 
         "visual": Key("v"),
