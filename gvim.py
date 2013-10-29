@@ -279,6 +279,8 @@ class NormalModeKeystrokeRule(MappingRule):
 
         "next paragraph": Key("rbrace"),
         "previous paragraph": Key("lbrace"),
+        "a paragraph": Key("a,p"),
+        "inner paragraph": Key("i,p"),
 
         "[<n>] X.": Key("x:%(n)d"),
         "[<n>] backspace": Key("backspace:%(n)d"),
