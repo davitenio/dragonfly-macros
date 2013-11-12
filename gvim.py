@@ -543,7 +543,7 @@ class ExModeDisabler(CompoundRule):
 class ExModeCommands(MappingRule):
     mapping  = {
         "read": Text("r "),
-        "write file": Text("w "),
+        "(write|save) file": Text("w "),
         "quit": Text("q "),
         "write and quit": Text("wq "),
         "edit": Text("e "),
