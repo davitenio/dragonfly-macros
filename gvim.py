@@ -286,6 +286,8 @@ class NormalModeKeystrokeRule(MappingRule):
         "[<n>] backspace": Key("backspace:%(n)d"),
 
 
+        "[<n>] Pete macro": Key("at,at:%(n)d"),
+
         "[<n>] join": Key("J:%(n)d"),
 
         "(delete | D.)": Key("d"),
