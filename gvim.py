@@ -593,6 +593,8 @@ class InsertModeEnabler(CompoundRule):
         "change inner (paren|parenthesis|raip|laip)": "c,i,rparen",
         "shift change": "C",
 
+        "sub line" : "S",
+
         "(after | append)": "a",
         "shift (after | append)": "A",
 
