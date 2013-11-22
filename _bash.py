@@ -146,6 +146,9 @@ git_rule = MappingRule(
 
 		"git branch": Text("git branch "),
 
+		"git merge": Text("git merge "),
+		"git merge not fast forward": Text("git merge --no-ff "),
+
 		"git log": Text("git log\n"),
 		"git log [color] words": Text("git log -p --color-words\n"),
 		"git log minus (P.|patch)": Text("git log -p\n"),
