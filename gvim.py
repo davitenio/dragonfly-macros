@@ -659,7 +659,11 @@ class InsertModeCommands(MappingRule):
 
 #---------------------------------------------------------------------------
 
-gvim_context = AppContext(executable="gvim")
+gvim_exec_context = AppContext(executable="gvim")
+# set the window title to vim in the putty session for the following context to
+# work.
+vim_putty_context = AppContext(title="vim")
+gvim_context = (gvim_exec_context | vim_putty_context)
 
 # set up the grammar for vim's ex mode
 exModeBootstrap = Grammar("ExMode bootstrap", context=gvim_context)

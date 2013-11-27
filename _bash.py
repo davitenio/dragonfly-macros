@@ -4,7 +4,8 @@ from dragonfly import (Grammar, AppContext, MappingRule, Dictation, IntegerRef,
 
 git_context = AppContext(title="git Bash")
 git_context2 = AppContext(title="MINGW32:")
-putty_context = AppContext(executable="putty")
+# set the window title to bash in putty for this context to work
+putty_context = AppContext(title="bash")
 grammar = Grammar("bash", context=(putty_context | git_context | git_context2))
 
 
