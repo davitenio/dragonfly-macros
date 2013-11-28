@@ -340,6 +340,13 @@ class NormalModeKeystrokeRule(MappingRule):
         "shift left": Key("langle,langle"),
         "shift right": Key("rangle,rangle"),
 
+        "fuzzy find": Key("backslash,t"),
+
+	# Python specific macros that work together with certain plug-ins
+	
+	# used in Jedi vim
+	"go to definition": Key("backslash,d"),
+
         # Pete is shorthand for repeat
         "[<n>] Pete": Key("dot:%(n)d"),
 
@@ -600,6 +607,9 @@ class InsertModeEnabler(CompoundRule):
 
         "oh": "o",
         "shift oh": "O",
+
+	# Jedi vim rename command
+	"rename": "backslash,r",
     })]
 
     def _process_recognition(self, node, extras):
@@ -647,6 +657,15 @@ class InsertModeCommands(MappingRule):
         "(scratch|delete) line": Key("c-u"),
         "[<n>] left": Key("left:%(n)d"),
         "[<n>] right": Key("right:%(n)d"),
+
+	"assign": Key("space,equal,space"),
+
+	# snippets for snipmate
+	"new method": Key("d,e,f,s,tab"),
+	"new class": Key("c,l,tab"),
+	"new function": Key("d,e,f,tab"),
+	"new while loop": Key("w,h,tab"),
+	"new for loop": Key("f,o,r,tab"),
     }
     extras = [
         Dictation("text"),
