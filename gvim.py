@@ -660,8 +660,13 @@ class InsertModeCommands(MappingRule):
         "[<n>] right": Key("right:%(n)d"),
 
 	"assign": Key("space,equal,space"),
+	"plus": Key("space,plus,space"),
+	"minus": Key("space,minus,space"),
+	"times": Key("space,asterisk,space"),
+	"equals": Key("space,equal,equal,space"),
 
 	# snippets for snipmate
+	"new fixture": Key("f,i,x,tab"),
 	"new method": Key("d,e,f,s,tab"),
 	"new class": Key("c,l,tab"),
 	"new function": Key("d,e,f,tab"),
