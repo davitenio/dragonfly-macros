@@ -664,6 +664,7 @@ class InsertModeCommands(MappingRule):
 	"minus": Key("space,minus,space"),
 	"times": Key("space,asterisk,space"),
 	"equals": Key("space,equal,equal,space"),
+	"not equals": Key("space,exclamation,equal,space"),
 
 	# snippets for snipmate
 	"new fixture": Key("f,i,x,tab"),
